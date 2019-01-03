@@ -2,14 +2,14 @@
   "verifyConditions": ["semantic-release-chrome", "@semantic-release/github"],
   "prepare": [
     {
-      "path": "semantic-release-chrome",
-      "asset": "my-extension.zip"
+      "path": "dist",
+      "asset": "cherrypie.zip"
     }
   ],
   "publish": [
     {
-      "path": "semantic-release-chrome",
-      "asset": "my-extension.zip",
+      "path": "dist",
+      "asset": "cherrypie.zip",
       "extensionId": "fiaignmlhapejpdfbephokpkjnmnaapo"
     },
     {
