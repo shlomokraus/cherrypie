@@ -1,6 +1,6 @@
 # Cherry Pie
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/)
+[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) [![CircleCI](https://circleci.com/gh/shlomokraus/cherrypie.svg?style=svg)](https://circleci.com/gh/shlomokraus/cherrypie)
 
 <p align="center">
 <i>If you can't pick cherries, slice a cherry pie</i>
