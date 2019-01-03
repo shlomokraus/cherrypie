@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import ReactDOM from "react-dom";
 import React from "react";
 

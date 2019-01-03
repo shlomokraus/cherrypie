@@ -4,8 +4,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-    mode: "production",
+    mode: "development",
     target: 'web', 
+    devtool: "source-map", 
 	context: path.resolve(__dirname, 'src'),          
 	entry: {
 		popup: path.resolve('./src/extension/Popup.tsx'),

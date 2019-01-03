@@ -1,5 +1,6 @@
 import { createGlobalState, createStore } from 'react-hooks-global-state';
 import { PullsGetResponse } from "@octokit/rest";
+import { ProcessStatus } from '../constants';
 
 export enum InitStatus {
     NotReady = "NotReady",
@@ -17,9 +18,8 @@ export enum InitError {
 }
 
 const { GlobalStateProvider, useGlobalState } = createGlobalState({
-    initStatus: InitStatus.NotReady,
-    initError: InitError.None,
-    reverts: [] as string[],
+    initStatus: ProcessStatus.Idle,
+    initError: undefined as any,
     slices: [] as string[],
     messages: [] as string[],
     route: "/login",

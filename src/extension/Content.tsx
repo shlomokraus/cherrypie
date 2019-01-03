@@ -1,4 +1,3 @@
-import "reflect-metadata";
 import ReactDOM from "react-dom";
 import React, { useEffect, useState, useRef } from "react";
 import { App } from "../components/App";
@@ -11,7 +10,6 @@ const emitter = new Emitter();
 function updateDom(count = 0) {
   let files = document.getElementsByClassName("file-header");
   if (files && files.length !== count) {
-    console.log("New count, updating DOM!", files.length, count);
     count = files.length;
     for (let i = 0; i < files.length; ++i) {
       const file = files[i];
@@ -49,7 +47,7 @@ const GithubActionBtn = ({ title, action }) => {
     <>
       <a
         onClick={action}
-        class="btn btn-sm tooltipped tooltipped-nw BtnGroup-item cherry-action"
+        className="btn btn-sm tooltipped tooltipped-nw BtnGroup-item cherry-action"
         rel="nofollow"
         aria-label="Revert"
       >
@@ -94,7 +92,6 @@ const useInjectMainSliceBtn = () => {
   useEffect(
     () => {
 	 const toolbar = document.querySelector(".diffbar .pr-review-tools");
-		console.log("Toolbar", toolbar)
       if (!toolbar) {
         return
       }
