@@ -27,9 +27,8 @@ export const Login = () => {
   useEffect(()=>{
     if(status===ProcessStatus.Done){
       onNext();
-    } else if (status===ProcessStatus.Failed){
-      setRoute("/error");
-    }
+    } 
+    // TODO: Handle errors if they are not auth based
   }, [status]);
 
   const onLogin = async () => {
