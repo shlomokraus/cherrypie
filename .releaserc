@@ -1,0 +1,24 @@
+{
+  "verifyConditions": ["semantic-release-chrome", "@semantic-release/github"],
+  "prepare": [
+    {
+      "path": "semantic-release-chrome",
+      "asset": "my-extension.zip"
+    }
+  ],
+  "publish": [
+    {
+      "path": "semantic-release-chrome",
+      "asset": "my-extension.zip",
+      "extensionId": "fiaignmlhapejpdfbephokpkjnmnaapo"
+    },
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        {
+          "path": "my-extension.zip"
+        }
+      ]
+    }
+  ]
+}
