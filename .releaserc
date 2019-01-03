@@ -1,4 +1,5 @@
 {
+      "npmPublish": false,
   "verifyConditions": ["semantic-release-chrome", "@semantic-release/github"],
   "prepare": [
     {
@@ -16,7 +17,7 @@
       "path": "@semantic-release/github",
       "assets": [
         {
-          "path": "my-extension.zip"
+          "path": "cherrypie.zip"
         }
       ]
     }

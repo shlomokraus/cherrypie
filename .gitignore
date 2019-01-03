@@ -62,3 +62,4 @@ typings/
 config/local*json
 .DS_Store
 dist
+release.sh
