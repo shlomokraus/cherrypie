@@ -4,6 +4,7 @@
 	"description": "Beyond cherry picking",
 	"main": "index.js",
 	"author": "Shlomo Kraus",
+	"repository": "https://github.com/shlomokraus/cherrypie.git",
 	"license": "MIT",
 	"scripts": {
 		"watch": "webpack --watch",
