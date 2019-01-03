@@ -8,7 +8,8 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:11.0
-
+        environment:
+          GO111MODULE: "ON"
     working_directory: ~/repo
 
     steps:
