@@ -6,7 +6,6 @@
 		"scripts": ["hot-reload.js"]
 	},
 	"browser_action": {
-		"default_popup": "popup.html"
 	},
 	"content_scripts": [{
 		"matches": ["https://github.com/*"],
