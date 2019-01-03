@@ -3,7 +3,7 @@ import { GithubService } from "../../src/service/Github";
 import { MessagesService } from "../../src/service/Messages";
 import config from "config";
 
-describe("CherryPie Service - Integration Tests", () => {
+describe.skip("CherryPie Service - Integration Tests", () => {
 
     let cherry: CherryPieService;
     let github: GithubService;
