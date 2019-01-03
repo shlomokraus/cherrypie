@@ -8,12 +8,10 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/node:11.0
-      - APP_ID: fiaignmlhapejpdfbephokpkjnmnaapo
 
     working_directory: ~/repo
 
     steps:
-      - run: echo ${GITHUB_PERSONAL_TOKEN}
       - checkout
 
       # Download and cache dependencies
