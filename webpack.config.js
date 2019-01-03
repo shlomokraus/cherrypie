@@ -3,21 +3,14 @@ const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-var buildEntryPoint = function (entryPoint) {
-	return [
-		entryPoint
-	]
-}
-
 module.exports = {
     mode: "production",
     target: 'web', 
-    devtool: 'inline-source-map', 
 	context: path.resolve(__dirname, 'src'),          
 	entry: {
-		popup: buildEntryPoint(path.resolve('./src/extension/Popup.tsx')),
+		popup: path.resolve('./src/extension/Popup.tsx'),
 		// background: buildEntryPoint(path.resolve('./src/extension/Background.ts')),
-		content: buildEntryPoint(path.resolve('./src/extension/Content.tsx'))
+		content: path.resolve('./src/extension/Content.tsx')
     },
     output: {
 		path: path.join(__dirname, "dist"),
@@ -37,8 +30,6 @@ module.exports = {
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
 	},
-	// REQUIRED to avoid issue "Uncaught TypeError: BrowserFS.BFSRequire is not a function"
-	// See: https://github.com/jvilk/BrowserFS/issues/201
 	module: {
 		rules: [{
 			test: /\.tsx?$/,
@@ -95,10 +86,5 @@ module.exports = {
 		{
 			from: path.resolve(__dirname, 'assets/cherry-128.png')
 		}])
-	],
-	// DISABLE Webpack's built-in process and Buffer polyfills!
-	node: {
-		process: false,
-		Buffer: false
-	}
+	]
 }
