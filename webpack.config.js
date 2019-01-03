@@ -6,7 +6,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
     mode: "production",
     target: 'web', 
-    devtool: 'inline-source-map', 
 	context: path.resolve(__dirname, 'src'),          
 	entry: {
 		popup: path.resolve('./src/extension/Popup.tsx'),
@@ -31,8 +30,6 @@ module.exports = {
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
 	},
-	// REQUIRED to avoid issue "Uncaught TypeError: BrowserFS.BFSRequire is not a function"
-	// See: https://github.com/jvilk/BrowserFS/issues/201
 	module: {
 		rules: [{
 			test: /\.tsx?$/,
