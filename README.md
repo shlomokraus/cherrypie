@@ -12,9 +12,9 @@
 
 This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. It even opens a new pull request for that branch, free of charge.
 
-## Introduction 
+## Reason 
 
-Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would have make more sense to split it into multiple smaller updates, each with its own PR.
+Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would've made more sense to split it into multiple smaller updates, each with its own PR.
 
 Since your commit history is unreadable, you can't use `git cherry-pick` and wish you could go back in time and turn it into something that plays nicely in `git log`.
 
