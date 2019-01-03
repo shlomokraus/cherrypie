@@ -12,6 +12,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - run: echo ${GITHUB_PERSONAL_TOKEN}
       - checkout
 
       # Download and cache dependencies
