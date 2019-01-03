@@ -5,12 +5,12 @@ import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
 import { useGlobalState } from '../context/GlobalState';
-import { AuthContext} from "../context/Auth";
 export const Login = () => {
   const { login, status, error } = useLogin();
-  const { authMethod, token, username, password } = useContext(AuthContext);
+  const [auth, setAuth] = useStorage("auth", {});
+  const { authMethod, token, username, password } = auth;
   const [route, setRoute] = useGlobalState("route");
-
+  
   const [form, updateForm] = useReducer((state, action) => {
     switch (action.field) {
       case "token":
@@ -23,6 +23,14 @@ export const Login = () => {
         return state;
     }
   }, {});
+
+  useEffect(()=>{
+    if(status===ProcessStatus.Done){
+      onNext();
+    } else if (status===ProcessStatus.Failed){
+      setRoute("/error");
+    }
+  }, [status]);
 
   const onLogin = async () => {
     let payload;
@@ -65,20 +73,20 @@ export const Login = () => {
 
   return (
     <div>
-      <div class="Box-header">
-        <h3 class="Box-title">Setup Cherry Pie</h3>
+      <div className="Box-header">
+        <h3 className="Box-title">Setup Cherry Pie</h3>
       </div>
       <RenderStatus status={status} error={error} />
-      <div class="Box-body ">
-        <h3 class="f1-light text-center ">Authentication</h3>
+      <div className="Box-body ">
+        <h3 className="f1-light text-center ">Authentication</h3>
         <form>
-          <dl class="form-group">
+          <dl className="form-group">
             <dt>
-              <label for="example-select">Authentication method</label>
+              <label htmlFor="example-select">Authentication method</label>
             </dt>
             <dd>
               <select
-                class="form-select   input-block"
+                className="form-select   input-block"
                 id="example-select"
                 onChange={e => {
                   e.target.value &&
@@ -94,13 +102,13 @@ export const Login = () => {
 
           {authMethod === "password" ? (
             <>
-              <dl class="form-group">
+              <dl className="form-group">
                 <dt>
-                  <label for="example-text">Login</label>
+                  <label htmlFor="example-text">Login</label>
                 </dt>
                 <dd>
                   <input
-                    class="form-control  input-block"
+                    className="form-control  input-block"
                     type="text"
                     value={form.username}
                     defaultValue={username}
@@ -110,13 +118,13 @@ export const Login = () => {
                   />
                 </dd>
               </dl>
-              <dl class="form-group">
+              <dl className="form-group">
                 <dt>
-                  <label for="example-text">Password</label>
+                  <label htmlFor="example-text">Password</label>
                 </dt>
                 <dd>
                   <input
-                    class="form-control  input-block"
+                    className="form-control  input-block"
                     type="password"
                     value={form.password}
                     defaultValue={password}
@@ -133,13 +141,13 @@ export const Login = () => {
 
           {authMethod === "token" ? (
             <>
-              <dl class="form-group">
+              <dl className="form-group">
                 <dt>
-                  <label for="example-text">Token</label>
+                  <label htmlFor="example-text">Token</label>
                 </dt>
                 <dd>
                   <input
-                    class="form-control  input-block"
+                    className="form-control  input-block"
                     type="text"
                     value={form.token}
                     defaultValue={token}
@@ -155,8 +163,8 @@ export const Login = () => {
           )}
         </form>
       </div>
-      <div class="Box-footer text-right">
-        <button type="button" class="btn btn-secondary mr-2" data-close-dialog>
+      <div className="Box-footer text-right">
+        <button type="button" className="btn btn-secondary mr-2" data-close-dialog>
           Cancel
         </button>
         <ActionButton
@@ -175,8 +183,8 @@ const ActionButton = ({ status, onLogin, onNext, disabled }) => {
     return <button
       onClick={onNext}
       type="button"
-      class="btn btn-primary"
-      autofocus
+      className="btn btn-primary"
+      autoFocus
     >
       Continue
     </button>;
@@ -185,8 +193,8 @@ const ActionButton = ({ status, onLogin, onNext, disabled }) => {
       disabled={disabled}
       onClick={onLogin}
       type="button"
-      class="btn btn-primary"
-      autofocus
+      className="btn btn-primary"
+      autoFocus
     >
       Authenticate
     </button>;
@@ -196,14 +204,14 @@ const ActionButton = ({ status, onLogin, onNext, disabled }) => {
 
 const ErrorMessage = ({ error }) => {
   error = error ? error : "Unknown Error";
-  return <div class="flash flash-full flash-error">Login failed: {error}</div>;
+  return <div className="flash flash-full flash-error">Login failed: {error}</div>;
 };
 const SuccessMessage = () => {
-  return <div class="flash flash-full flash-success">Login successful</div>;
+  return <div className="flash flash-full flash-success">Login successful</div>;
 };
 const WorkingMessage = () => {
   return (
-    <div class="flash flash-full">Please wait while authenticating...</div>
+    <div className="flash flash-full">Please wait while authenticating...</div>
   );
 };
 const RenderStatus = ({ status, error }) => {

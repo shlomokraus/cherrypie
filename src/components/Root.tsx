@@ -9,13 +9,13 @@ export const Root = () => {
   const { slices } = useSlices();
  
   return (
-    slices.length > 0 ? <details class="details-reset details-overlay details-overlay-dark">
-      <summary class="btn btn-sm  btn-purple" aria-haspopup="dialog">
+    slices.length > 0 ? <details className="details-reset details-overlay details-overlay-dark">
+      <summary className="btn btn-sm  btn-purple" aria-haspopup="dialog">
         Cherry Slice
-        <span class="ml-2">{slices.length}</span>
+        <span className="ml-2">{slices.length}</span>
       </summary>
-      <details-dialog class="Box Box--overlay d-flex flex-column anim-fade-in fast">
-			<Routes />
+      <details-dialog className="Box Box--overlay d-flex flex-column anim-fade-in fast">
+			<div style={{zIndex:10000, backgroundColor: "white"}}><Routes /></div>
       </details-dialog>
     </details> : ""
   );

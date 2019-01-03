@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
     mode: "development",
     target: 'web', 
-    devtool: 'inline-source-map', 
+    devtool: "source-map", 
 	context: path.resolve(__dirname, 'src'),          
 	entry: {
 		popup: path.resolve('./src/extension/Popup.tsx'),

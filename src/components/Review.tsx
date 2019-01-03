@@ -42,28 +42,28 @@ export const Review = () => {
 
   return (
     <div>
-      <div class="Box-header">
-        <h3 class="Box-title">Review changes</h3>
+      <div className="Box-header">
+        <h3 className="Box-title">Review changes</h3>
       </div>
 
-      <div class="flash flash-full">
+      <div className="flash flash-full">
         {`You are about to slice ${slices.length} updates from ${source}`}
       </div>
 
-      <div class="Box-body">
-        <div class="Subhead" />
+      <div className="Box-body">
+        <div className="Subhead" />
         <form>
-          <dl class="form-group">
+          <dl className="form-group">
             <dt>
-              <label for="example-text">Target branch</label>
-              <p class="note" id="help-text-for-checkbox">
+              <label htmlFor="example-text">Target branch</label>
+              <p className="note" id="help-text-for-checkbox">
                 <strong>warning:</strong> if branch exists, push will{" "}
                 <strong>overwrite</strong> any other changes.
               </p>
             </dt>
             <dd>
               <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 value={target}
                 onChange={e => setTarget(e.target.value)}
@@ -71,13 +71,13 @@ export const Review = () => {
               />
             </dd>
           </dl>
-          <dl class="form-group">
+          <dl className="form-group">
             <dt>
-              <label for="example-text">Commit message</label>
+              <label htmlFor="example-text">Commit message</label>
             </dt>
             <dd>
               <input
-                class="form-control"
+                className="form-control"
                 type="text"
                 value={commitMessage}
                 onChange={e => setCommitMessage(e.target.value)}
@@ -85,10 +85,10 @@ export const Review = () => {
               />
             </dd>
           </dl>
-          <div class="Subhead Subhead--spacious">
-            <div class="Subhead-heading">Pull Request</div>
+          <div className="Subhead Subhead--spacious">
+            <div className="Subhead-heading">Pull Request</div>
           </div>
-          <div class="form-checkbox">
+          <div className="form-checkbox">
             <label>
               <input
                 type="checkbox"
@@ -99,7 +99,7 @@ export const Review = () => {
             </label>
           </div>
           <input
-            class="form-control input-block"
+            className="form-control input-block"
             type="text"
             placeholder="Pull request title"
             value={prTitle}
@@ -109,11 +109,11 @@ export const Review = () => {
         </form>
       </div>
 
-      <div class="Box-footer text-right">
-        <button type="button" class="btn  mr-2" data-close-dialog>
+      <div className="Box-footer text-right">
+        <button type="button" className="btn  mr-2" data-close-dialog>
           Cancel
         </button>
-        <button type="button" class="btn  mr-2" onClick={()=>setRoute("/files")}>
+        <button type="button" className="btn  mr-2" onClick={()=>setRoute("/files")}>
           Back
         </button>
         <button
@@ -121,8 +121,8 @@ export const Review = () => {
             setRoute("/execute");
           }}
           type="button"
-          class="btn btn-primary"
-          autofocus
+          className="btn btn-primary"
+          autoFocus
           disabled={!prTitle}
         >
           Slice!

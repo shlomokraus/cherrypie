@@ -4,7 +4,7 @@ import { GlobalStateProvider } from "../context/GlobalState";
 import { Root } from "./Root";
 import { GlobalStoreProvider } from "../context/GlobalStore";
 import { useSlices } from "../hooks/slices";
-import { AuthProvider } from "../context/Auth";
+import { AuthLoader } from "./Auth";
 
 export const useEmitter = emitter => {
   const { addSlice } = useSlices();
@@ -29,7 +29,7 @@ export const Container = props => {
     <GlobalStoreProvider>
       <GlobalStateProvider>
         <CherryProvider>
-          <AuthProvider>{props.children}</AuthProvider>
+          <AuthLoader>{props.children}</AuthLoader>
         </CherryProvider>
       </GlobalStateProvider>
     </GlobalStoreProvider>

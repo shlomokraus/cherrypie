@@ -2,9 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 
-export const AuthContext = React.createContext();
-
-export const AuthProvider = props => {
+export const AuthLoader = props => {
   const [authDone, setAuthDone] = useState(false);
   const [auth, setAuth, loaded] = useStorage("auth", {
     authMethod: "password"
@@ -12,12 +10,11 @@ export const AuthProvider = props => {
   const { login } = useLogin();
 
   useEffect(
-    async () => {
+     () => {
       if (loaded) {
-          console.log("Auth is", auth);
         try {
           if (validateAuth(auth)) {
-            await login(auth);
+            login(auth).then(()=>setAuthDone(true)).catch(()=>setAuthDone(true));
           }
         } finally {
             setAuthDone(true);
@@ -27,11 +24,12 @@ export const AuthProvider = props => {
     [loaded]
   );
 
-  return (
-    <AuthContext.Provider value={authDone}>
-      {props.children}
-    </AuthContext.Provider>
-  );
+  if(authDone){
+      return <>{props.children}</>
+  } else {
+      return <div />
+  }
+
 };
 
 const validateAuth = ({ authMethod, token, username, password }) => {

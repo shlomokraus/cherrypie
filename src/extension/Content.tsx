@@ -47,7 +47,7 @@ const GithubActionBtn = ({ title, action }) => {
     <>
       <a
         onClick={action}
-        class="btn btn-sm tooltipped tooltipped-nw BtnGroup-item cherry-action"
+        className="btn btn-sm tooltipped tooltipped-nw BtnGroup-item cherry-action"
         rel="nofollow"
         aria-label="Revert"
       >

@@ -1,10 +1,11 @@
 import { useState, useEffect, useContext } from "react";
 import { CherryContext } from "../context/Cherry";
 import { ProcessStatus } from "../constants";
+import { useGlobalState } from "../context/GlobalState";
 
 export const useLogin = () => {
-    const [status, setStatus] = useState(ProcessStatus.Idle);
-    const [error, setError] = useState();
+    const [status, setStatus] = useGlobalState("initStatus");
+    const [error, setError] =  useGlobalState("initError");
     const cherry = useContext(CherryContext);
 
     const login = async (params: {username?: string, password?: string, token?: string}) => {
