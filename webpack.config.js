@@ -1,7 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const tsImportPluginFactory = require('ts-import-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 var buildEntryPoint = function (entryPoint) {
@@ -17,7 +16,7 @@ module.exports = {
 	context: path.resolve(__dirname, 'src'),          
 	entry: {
 		popup: buildEntryPoint(path.resolve('./src/extension/Popup.tsx')),
-		background: buildEntryPoint(path.resolve('./src/extension/Background.ts')),
+		// background: buildEntryPoint(path.resolve('./src/extension/Background.ts')),
 		content: buildEntryPoint(path.resolve('./src/extension/Content.tsx'))
     },
     output: {
@@ -33,26 +32,14 @@ module.exports = {
 		disableHostCheck: true
 	},
 	optimization: {
-		minimize: false // <---- disables uglify.
+		minimize: true
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],
-
-		// Use our versions of Node modules.
-		alias: {
-			'fs': 'browserfs/dist/shims/fs.js',
-			'buffer': 'browserfs/dist/shims/buffer.js',
-			'path': 'browserfs/dist/shims/path.js',
-			'processGlobal': 'browserfs/dist/shims/process.js',
-			'bufferGlobal': 'browserfs/dist/shims/bufferGlobal.js',
-			'bfsGlobal': require.resolve('browserfs')
-		}
 	},
 	// REQUIRED to avoid issue "Uncaught TypeError: BrowserFS.BFSRequire is not a function"
 	// See: https://github.com/jvilk/BrowserFS/issues/201
 	module: {
-		noParse: /browserfs\.js/,
-
 		rules: [{
 			test: /\.tsx?$/,
 			loader: 'babel-loader',
@@ -98,14 +85,6 @@ module.exports = {
 			template: path.resolve(__dirname, 'assets/index.html'),
 			filename: "content.html",
 			chunks: ["content"]
-		}),
-		// Expose BrowserFS, process, and Buffer globals.
-		// NOTE: If you intend to use BrowserFS in a script tag, you do not need
-		// to expose a BrowserFS global.
-		new webpack.ProvidePlugin({
-			BrowserFS: 'bfsGlobal',
-			process: 'processGlobal',
-			Buffer: 'bufferGlobal'
 		}),
 		new CopyWebpackPlugin([{
 			from: path.resolve(__dirname, 'assets/manifest.json')
