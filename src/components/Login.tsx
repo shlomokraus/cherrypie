@@ -1,6 +1,6 @@
 import { jsx } from "@emotion/core";
 
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
@@ -11,6 +11,7 @@ export const Login = () => {
   const [auth, setAuth] = useStorage("auth", { authMethod: "password" });
   const { authMethod, token, username, password } = auth;
   const [route, setRoute] = useGlobalState("route");
+
   const [form, updateForm] = useReducer((state, action) => {
     switch (action.field) {
       case "token":
@@ -23,7 +24,6 @@ export const Login = () => {
         return state;
     }
   }, {});
-
 
   const onLogin = async () => {
     let payload;

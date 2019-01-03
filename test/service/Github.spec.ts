@@ -2,7 +2,7 @@ import { GithubService } from "../../src/service/Github";
 import config from "config";
 import shortid from "shortid";
 
-describe("Github Service - Integration Tests", () => {
+describe.skip("Github Service - Integration Tests", () => {
 
     const { owner, repo, username, password, number, refPrefix } = config.get("github")
     describe.skip("init()", ()=>{

@@ -1,0 +1,25 @@
+{
+      "npmPublish": false,
+  "verifyConditions": ["semantic-release-chrome", "@semantic-release/github"],
+  "prepare": [
+    {
+      "path": "dist",
+      "asset": "cherrypie.zip"
+    }
+  ],
+  "publish": [
+    {
+      "path": "dist",
+      "asset": "cherrypie.zip",
+      "extensionId": "fiaignmlhapejpdfbephokpkjnmnaapo"
+    },
+    {
+      "path": "@semantic-release/github",
+      "assets": [
+        {
+          "path": "cherrypie.zip"
+        }
+      ]
+    }
+  ]
+}

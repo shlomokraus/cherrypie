@@ -1,0 +1,25 @@
+{
+	"presets": [
+		["@babel/env",
+			{
+				"useBuiltIns": "usage",
+				"targets": {
+					"browsers": [
+						"last 2 versions"
+					]
+				}
+			}
+		],
+		"@babel/typescript",
+		"@emotion/babel-preset-css-prop"
+	],
+	"plugins": [
+		["emotion", {
+			"sourceMap": true
+		}],
+		["@babel/plugin-proposal-decorators", {
+			"legacy": true
+		}],
+		"@babel/plugin-proposal-class-properties"
+	]
+}

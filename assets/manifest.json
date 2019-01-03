@@ -1,6 +1,6 @@
 {
-	"name": "My Extension",
-	"version": "1.0",
+	"name": "Cherry Pie",
+	"version": "0.0.1",
 	"manifest_version": 2,
 	"background": {
 		"scripts": ["hot-reload.js"]
