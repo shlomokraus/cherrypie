@@ -11,16 +11,17 @@ export const useLogin = () => {
         if(!cherry){
             throw Error("Missing Cherry service in context");
         }
-        console.log("Setting");
 
         setStatus(ProcessStatus.Working);
         try {
             await cherry.init(params);
             setStatus(ProcessStatus.Done);
+            return true;
         } catch(ex) {
             console.log("Init error", ex.message);
             setStatus(ProcessStatus.Failed);
             setError(ex.message);
+            return false;
         }
     }
 

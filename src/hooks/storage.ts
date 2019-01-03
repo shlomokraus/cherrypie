@@ -29,6 +29,8 @@ export const useStorage = (key, defaultValue?) => {
         } else {
           updateStorage(value);
         }
+
+        console.log("Setting loaded to true");
         setLoaded(true);
       });
     },

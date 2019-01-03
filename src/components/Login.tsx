@@ -1,15 +1,14 @@
 import { jsx } from "@emotion/core";
 
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useContext } from "react";
 import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
 import { useGlobalState } from '../context/GlobalState';
-
+import { AuthContext} from "../context/Auth";
 export const Login = () => {
   const { login, status, error } = useLogin();
-  const [auth, setAuth] = useStorage("auth", { authMethod: "password" });
-  const { authMethod, token, username, password } = auth;
+  const { authMethod, token, username, password } = useContext(AuthContext);
   const [route, setRoute] = useGlobalState("route");
 
   const [form, updateForm] = useReducer((state, action) => {
