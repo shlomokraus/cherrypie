@@ -10,7 +10,6 @@
 
 <p align="left">
   <br/>
-  <br/>
 <a href="https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo" target="_blank"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" /></a>
   <br/>
 </P>
