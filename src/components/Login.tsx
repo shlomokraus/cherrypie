@@ -173,10 +173,10 @@ export const Login = () => {
           ) : (
             ""
           )}
-          <div class="form-checkbox">
+          <div className="form-checkbox">
             <label>
               <input type="checkbox" checked={form.save} onChange={e=>{updateForm({field: "save", value: e.target.checked})}} />
-              <em class="highlight">Save credentials</em>
+              <em className="highlight">Save credentials</em>
             </label>
           </div>
         </form>
