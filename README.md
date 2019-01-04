@@ -3,20 +3,21 @@
 <img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
 </p>
 
-# Cherry Pie 
+# CHERRY PIE 
 
 
-### _A Chrome extension for crafting the perfect pull request_
+#### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
 
-<p align="left">
-<img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" />
+<p align="center">
+<a href="https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo" target="_blank"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" /></a>
 </P>
 
 ## TL;DR
 
-This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
+This extension adds a button to Github's Pull Request page that extracts files from one branch and stage them into a new one. 
+That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
 
-## Reason 
+## But why? 
 
 Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would've made more sense to split it into multiple smaller updates, each with its own PR.
 
@@ -31,13 +32,13 @@ _Cherry picking_ is a perfect git command which, in a perfect world, allows a pe
 
 Though our code is clean, our feature branch’s commits are “WIP” or “fix” or “here’s another try” and essentially - just a whole big mess waiting to be _squashed_.
 
-#### If you can't pick, then slice!
+### If you can't pick, then slice!
 _Cherry Pie_ let’s you work your way backwards: Pick any number of _files_ from a branch (instead of _commits_) and move them into a whole new branch. 
 
 
 That way you can split a long pull request into numerous atomic and clean ones, with descriptive titles. Bugs will be easier to spot, reverts become a breeze and the guy over there doing your CR would be so thankful he’ll bake you a pie. A real one for sure.
 
-## Is this needed?
+### Is this needed?
 
 Pull requests should be small, surgical, keeping only the minimum required updates. But it is easier said than done. [In our team](https://iqoqo.co) we constantly trying to keep PRs small but it can't be done without over-complicating the workflow.
 
@@ -49,7 +50,7 @@ This extension rose from endless hours of reviewing pull requests where the thou
 
 You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie. 
 
-<p align="center"><br />If you can't pick cherries, slice a cherry pie<br /><br /><br /></p>
+<p align="center"><br /><i>If you can't pick cherries, slice a cherry pie</i><br /><br /><br /></p>
 
 
 
