@@ -5,13 +5,13 @@
 [![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
 [![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
 
-_A Chrome extension for crafting the perfect pull request_
+### _A Chrome extension for crafting the perfect pull request_
+
+[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
 
 ## TL;DR
 
 This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
-
-[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
 
 ## Reason 
 
@@ -44,8 +44,7 @@ This extension rose from endless hours of reviewing pull requests where the thou
 
 ## What's in the name?
 
-> If commits may be picked, files are `sliced`.
+You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie. 
 
-You use `cherry-pick` for commits (which are cherries). But when commit history is squashed, it turns into a cherry pie. So if you pick a cherry, you need to `slice` a cherry pie. 
+<p align="center"><br /><br />If you can't pick cherries, slice a cherry pie</p>
 
-_Cherry Pie - a perfect tool for a less than perfect world._
