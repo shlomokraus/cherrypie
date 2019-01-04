@@ -37,14 +37,6 @@ export const Execute = props => {
   return (
     <div>
       <div className="Box-header">
-        <button
-          className="Box-btn-octicon btn-octicon float-right"
-          type="button"
-          aria-label="Close dialog"
-          data-close-dialog
-        >
-          close
-        </button>
         <h3 className="Box-title">EXECUTING</h3>
       </div>
       <RenderStatus status={status} error={error} />
