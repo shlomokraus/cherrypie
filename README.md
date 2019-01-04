@@ -23,7 +23,7 @@ CHERRY PIE
 
 </div>
 
-## TL;DR
+<h1 align="center"><sub>TL;DR</sub></h1>
 
 This extension adds a button to Github's Pull Request page that extracts files from one branch and stage them into a new one.
 That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead.
