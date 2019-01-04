@@ -5,12 +5,13 @@
 [![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
 [![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
 
->A Chrome extension for easily moving changes from one pull request to another
+_A Chrome extension for crafting the perfect pull request_
 
 ## TL;DR
 
-This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. It even opens a new pull request for that branch, free of charge.
-[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_496x150.png)
+This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
+
+[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
 
 ## Reason 
 
