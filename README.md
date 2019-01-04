@@ -1,11 +1,9 @@
-
+# CHERRY PIE 
 
 <p align="center">
 <img width="350" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
 </p>
 
-
-# CHERRY PIE 
 
 ### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
 
