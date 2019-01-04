@@ -1,12 +1,16 @@
 
 
-<p align="center">
+<div align="center">
+  <h1>
   <br />
    <br />
-<img width="150" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
-  <h1>CHERRY PIE</h1>
+<img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+  CHERRY PIE
   <br />
    <br />
+</h1>
+</div>
+
    <sup>
    <br />
    <br />
@@ -15,10 +19,6 @@
     <br />
   </sup>
    
-</p>
-
-
-# CHERRY PIE 
 
 ### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
 
