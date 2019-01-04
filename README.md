@@ -18,7 +18,7 @@
 This extension adds a button to Github's Pull Request page that extracts files from one branch and stage them into a new one. 
 That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
 
-## But why? 
+### But why? 
 
 Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would've made more sense to split it into multiple smaller updates, each with its own PR.
 
