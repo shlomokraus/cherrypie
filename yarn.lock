@@ -745,6 +745,12 @@
   version "0.2.2"
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.2.2.tgz#63985d3d8b02530e0869962f4da09142ee8e200e"
 
+"@githubprimer/octicons-react@^8.2.0":
+  version "8.2.0"
+  resolved "https://registry.npmjs.org/@githubprimer/octicons-react/-/octicons-react-8.2.0.tgz#a95bbd4c409fbf975c94e2ece4881860001f134f"
+  dependencies:
+    prop-types "^15.6.1"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.npmjs.org/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2682,6 +2688,10 @@ des.js@^1.0.0:
 destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
+
+details-dialog-element@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.npmjs.org/details-dialog-element/-/details-dialog-element-1.4.1.tgz#cad59186291705d991ac4121eb3ee2ece6de77e6"
 
 detect-indent@^4.0.0:
   version "4.0.0"
