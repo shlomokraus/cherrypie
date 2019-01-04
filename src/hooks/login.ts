@@ -24,7 +24,6 @@ export const useLogin = () => {
     try {
       await cherry.init(params);
       setStatus(ProcessStatus.Done);
-
       if (params.save) {
         setAuth({
           ...auth,

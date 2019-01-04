@@ -38,7 +38,6 @@ export const Login = () => {
       save: true
     }
   );
-
   useEffect(
     () => {
       if (status === ProcessStatus.Done) {
@@ -55,12 +54,13 @@ export const Login = () => {
     switch (form.authMethod) {
       case "password":
         payload = {
+          ...payload,
           username: form.username || auth.username,
           password: form.password || auth.password
         };
         break;
       case "token":
-        payload = { token: form.token || auth.token };
+        payload = { ...payload, token: form.token || auth.token };
         break;
     }
 
