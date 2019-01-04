@@ -7,7 +7,7 @@
 
 ### _A Chrome extension for crafting the perfect pull request_
 
-[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
+[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
 
 ## TL;DR
 
