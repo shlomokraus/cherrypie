@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSlices } from "../hooks/slices";
 import { useGlobalState } from "../context/GlobalState";
-import { useRouter } from "../hooks/router";
 import { CherryContext } from "../context/Cherry";
+import { SettingsBtn } from "./Settings";
 
 export const Files = () => {
 	const cherry = useContext(CherryContext);
@@ -20,6 +20,9 @@ export const Files = () => {
   return (
     <div>
       <div className="Box-header">
+      <button className="Box-btn-octicon btn-octicon float-right">
+        <SettingsBtn />
+      </button>
         <h3 className="Box-title">Selected files</h3>
       </div>
 

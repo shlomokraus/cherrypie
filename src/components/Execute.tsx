@@ -17,21 +17,21 @@ export const Execute = props => {
 
   const cherry = useContext(CherryContext);
 
-  useEffect(()=>{
+  useEffect(() => {
     const pr = cherry.pr();
     if (!pr) {
-        return <div>Pull request no loaded</div>;
-      }
-      slice({
-        paths: slices,
-        sourceBranch: pr.head.ref,
-        targetBranch: target,
-        baseBranch: pr.base.ref,
-        createPr: true,
-        prTitle
-      });
-  },[])
-  
+      return <div>Pull request no loaded</div>;
+    }
+    slice({
+      paths: slices,
+      sourceBranch: pr.head.ref,
+      targetBranch: target,
+      baseBranch: pr.base.ref,
+      createPr: true,
+      message: commitMessage,
+      prTitle
+    });
+  }, []);
 
   return (
     <div>
@@ -47,40 +47,57 @@ export const Execute = props => {
         <h3 className="Box-title">Execute</h3>
       </div>
       <RenderStatus status={status} error={error} />
-        <div style={{minHeight: "300px"}}>
-          {messages.map((message, index) => {
-              let Icon = <CheckIcon />
-            const isLast = index === messages.length - 1;
-            if(isLast){
-                if(status===ProcessStatus.Failed){
-                    Icon = <CrossIcon />
-                } else if (status===ProcessStatus.Working){
-                    Icon = <PulseIcon />
-                }
+      <div style={{ minHeight: "300px" }}>
+        {messages.map((message, index) => {
+          let Icon = <CheckIcon />;
+          const isLast = index === messages.length - 1;
+          if (isLast) {
+            if (status === ProcessStatus.Failed) {
+              Icon = <CrossIcon />;
+            } else if (status === ProcessStatus.Working) {
+              Icon = <PulseIcon />;
             }
-            
-            return (
-                <div className={`Box-row clearfix d-flex flex-items-center ${isLast && status===ProcessStatus.Working ? "Box-row--unread" : ""}`}>
-                <div  className="mr-1 Box-btn-octicon btn-octicon float-left">{Icon}</div>
-                <div className="flex-auto">
-                  <strong>{message.title}</strong>
-                  <div className="text-small text-gray-light">
-                  {message.text}
-                  </div>
-                </div>
+          }
+
+          return (
+            <div
+              className={`Box-row clearfix d-flex flex-items-center ${
+                isLast && status === ProcessStatus.Working
+                  ? "Box-row--unread"
+                  : ""
+              }`}
+            >
+              <div className="mr-1 Box-btn-octicon btn-octicon float-left">
+                {Icon}
               </div>
-            );
-          })}
+              <div className="flex-auto">
+                <strong>{message.title}</strong>
+                <div className="text-small text-gray-light">{message.text}</div>
+              </div>
+            </div>
+          );
+        })}
       </div>
       <div className="Box-footer text-right">
         <button
-          onClick={() => setRoute("/slice")}
+          disabled={status === ProcessStatus.Done}
+          onClick={() => setRoute("/review")}
           type="button"
           className="btn mr-2"
         >
           Back
         </button>
-        <button disabled={status===ProcessStatus.Working} type="button" className="btn mr-2" data-close-dialog>
+        <button
+          onClick={() => {
+            if (status === ProcessStatus.Done) {
+              setSlices([]);
+            }
+          }}
+          disabled={status === ProcessStatus.Working}
+          type="button"
+          className="btn mr-2"
+          data-close-dialog
+        >
           Close
         </button>
       </div>
@@ -90,7 +107,9 @@ export const Execute = props => {
 
 const ErrorMessage = ({ error }) => {
   error = error ? error : "Unknown Error";
-  return <div className="flash flash-full flash-error">Slice failed: {error}</div>;
+  return (
+    <div className="flash flash-full flash-error">Slice failed: {error}</div>
+  );
 };
 const SuccessMessage = () => {
   return (
@@ -165,4 +184,3 @@ const CrossIcon = () => {
     </svg>
   );
 };
-
