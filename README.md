@@ -1,14 +1,15 @@
 
+
 <p align="center">
-<img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+<img width="350" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
 </p>
+
 
 # CHERRY PIE 
 
+### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
 
-#### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
-
-<p align="center">
+<p align="left">
 <a href="https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo" target="_blank"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" /></a>
 </P>
 
@@ -17,7 +18,7 @@
 This extension adds a button to Github's Pull Request page that extracts files from one branch and stage them into a new one. 
 That way you can submit PRs with minimum relevant changes, even if you didn't plan ahead. 
 
-## But why? 
+### But why? 
 
 Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would've made more sense to split it into multiple smaller updates, each with its own PR.
 
