@@ -11,6 +11,8 @@ CHERRY PIE
    <sup>
   <h3>A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST</h3>
    <br />
+   <br />
+
 </sup>  
     <pre><a href="https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo" target="_blank"><img src="https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png" /></a></pre>
 <br />
