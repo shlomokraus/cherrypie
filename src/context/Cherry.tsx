@@ -5,18 +5,6 @@ import { useGlobalStore, dispatch} from "./GlobalStore";
 import { useWindowLocation } from "../hooks/windowLocation";
 export const CherryContext = React.createContext();
 
-const parsePrUrl = url => {
-  let parsed = url.split("/");
-  if (parsed[2] !== "github.com") {
-    return false;
-  }
-  if (parsed[5] !== "pull") {
-    return false;
-  }
-
-  return { owner: parsed[3], repo: parsed[4], number: parsed[6] };
-};
-
 /**
  * Parse url and initialize github service and cherry.
  * Execute on every location change but only initialize if this is a pull request page. 
@@ -24,10 +12,11 @@ const parsePrUrl = url => {
 const useCherryClient = () => {
   const [cherry, setCherry] = useState();
   const location = useWindowLocation();
-
+ 
+  // Construct client
   useEffect(
     () => {
-      const parsed = parsePrUrl(location);
+      const parsed = CherryPieService.parsePrUrl(location);
       if (!parsed) {
         setCherry(undefined);
       }
@@ -44,6 +33,8 @@ const useCherryClient = () => {
 
   return cherry;
 };
+
+
 
 export const CherryProvider = props => {
   const client = useCherryClient();

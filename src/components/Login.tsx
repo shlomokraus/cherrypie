@@ -5,9 +5,11 @@ import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
 import { useGlobalState } from '../context/GlobalState';
+import { useAuth } from "../hooks/auth";
+
 export const Login = () => {
   const { login, status, error } = useLogin();
-  const [auth, setAuth] = useStorage("auth", {});
+  const [auth] = useAuth();
   const { authMethod, token, username, password } = auth;
   const [route, setRoute] = useGlobalState("route");
   
@@ -19,10 +21,17 @@ export const Login = () => {
         return { ...state, username: action.value };
       case "password":
         return { ...state, password: action.value };
+      case "authMethod":
+        return { ...state, authMethod: action.value };
       default:
         return state;
     }
-  }, {});
+  }, {
+    username: auth.username,
+    password: auth.password,
+    token: auth.token,
+    authMethod: auth.authMethod
+  });
 
   useEffect(()=>{
     if(status===ProcessStatus.Done){
@@ -32,23 +41,17 @@ export const Login = () => {
   }, [status]);
 
   const onLogin = async () => {
-    let payload;
+    let payload = { authMethod: form.authMethod, save: true } as any;
 
-    switch (authMethod) {
+    switch (form.authMethod) {
       case "password":
         payload = {
           username: form.username || auth.username,
           password: form.password || auth.password
         };
-        setAuth({
-          ...auth,
-          authMethod: "password",
-          ...payload
-        });
         break;
       case "token":
         payload = { token: form.token || auth.token };
-        setAuth({ ...auth, authMethod: "token", ...payload });
         break;
     }
 
@@ -59,7 +62,7 @@ export const Login = () => {
     setRoute("/files");
   }
   const getSubmitEnabled = () => {
-    switch (authMethod) {
+    switch (form.authMethod) {
       case "password":
         return (
           (form.username && form.password) || (auth.username && auth.password)
@@ -89,7 +92,7 @@ export const Login = () => {
                 id="example-select"
                 onChange={e => {
                   e.target.value &&
-                    setAuth({ ...auth, authMethod: e.target.value });
+                    updateForm({ field: "authMethod", value: e.target.value })
                 }}
                 value={authMethod}
               >

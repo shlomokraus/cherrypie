@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useState } from "react";
 import { useSlices } from "../hooks/slices";
 import { useGlobalState } from "../context/GlobalState";
-import { useRouter } from "../hooks/router";
 import { CherryContext } from "../context/Cherry";
 import shortid from "shortid";
 
