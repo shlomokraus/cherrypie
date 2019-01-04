@@ -4,7 +4,7 @@ import React, { useReducer, useEffect, useContext } from "react";
 import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
-import { useGlobalState } from '../context/GlobalState';
+import { useGlobalState } from "../context/GlobalState";
 import { useAuth } from "../hooks/auth";
 
 export const Login = () => {
@@ -12,46 +12,55 @@ export const Login = () => {
   const [auth] = useAuth();
   const { authMethod, token, username, password } = auth;
   const [route, setRoute] = useGlobalState("route");
-  
-  const [form, updateForm] = useReducer((state, action) => {
-    switch (action.field) {
-      case "token":
-        return { ...state, token: action.value };
-      case "username":
-        return { ...state, username: action.value };
-      case "password":
-        return { ...state, password: action.value };
-      case "authMethod":
-        return { ...state, authMethod: action.value };
-      default:
-        return state;
-    }
-  }, {
-    username: auth.username,
-    password: auth.password,
-    token: auth.token,
-    authMethod: auth.authMethod
-  });
 
-  useEffect(()=>{
-    if(status===ProcessStatus.Done){
-      onNext();
-    } 
-    // TODO: Handle errors if they are not auth based
-  }, [status]);
+  const [form, updateForm] = useReducer(
+    (state, action) => {
+      switch (action.field) {
+        case "token":
+          return { ...state, token: action.value };
+        case "username":
+          return { ...state, username: action.value };
+        case "password":
+          return { ...state, password: action.value };
+        case "authMethod":
+          return { ...state, authMethod: action.value };
+        case "save":
+          return { ...state, save: action.value };
+        default:
+          return state;
+      }
+    },
+    {
+      username: auth.username,
+      password: auth.password,
+      token: auth.token,
+      authMethod: auth.authMethod,
+      save: true
+    }
+  );
+  useEffect(
+    () => {
+      if (status === ProcessStatus.Done) {
+        onNext();
+      }
+      // TODO: Handle errors if they are not auth based
+    },
+    [status]
+  );
 
   const onLogin = async () => {
-    let payload = { authMethod: form.authMethod, save: true } as any;
+    let payload = { authMethod: form.authMethod, save: form.save } as any;
 
     switch (form.authMethod) {
       case "password":
         payload = {
+          ...payload,
           username: form.username || auth.username,
           password: form.password || auth.password
         };
         break;
       case "token":
-        payload = { token: form.token || auth.token };
+        payload = { ...payload, token: form.token || auth.token };
         break;
     }
 
@@ -60,7 +69,7 @@ export const Login = () => {
 
   const onNext = () => {
     setRoute("/files");
-  }
+  };
   const getSubmitEnabled = () => {
     switch (form.authMethod) {
       case "password":
@@ -76,7 +85,7 @@ export const Login = () => {
   return (
     <div>
       <div className="Box-header">
-        <h3 className="Box-title">Setup Cherry Pie</h3>
+        <h3 className="Box-title">CHERRY PIE - SETUP</h3>
       </div>
       <RenderStatus status={status} error={error} />
       <div className="Box-body ">
@@ -92,9 +101,10 @@ export const Login = () => {
                 id="example-select"
                 onChange={e => {
                   e.target.value &&
-                    updateForm({ field: "authMethod", value: e.target.value })
+                    updateForm({ field: "authMethod", value: e.target.value });
                 }}
-                value={authMethod}
+                defaultValue={authMethod}
+                value={form.authMethod}
               >
                 <option value="password">Password</option>
                 <option value="token">Token</option>
@@ -102,7 +112,7 @@ export const Login = () => {
             </dd>
           </dl>
 
-          {authMethod === "password" ? (
+          {form.authMethod === "password" ? (
             <>
               <dl className="form-group">
                 <dt>
@@ -141,7 +151,7 @@ export const Login = () => {
             ""
           )}
 
-          {authMethod === "token" ? (
+          {form.authMethod === "token" ? (
             <>
               <dl className="form-group">
                 <dt>
@@ -163,10 +173,20 @@ export const Login = () => {
           ) : (
             ""
           )}
+          <div className="form-checkbox">
+            <label>
+              <input type="checkbox" checked={form.save} onChange={e=>{updateForm({field: "save", value: e.target.checked})}} />
+              <em className="highlight">Save credentials</em>
+            </label>
+          </div>
         </form>
       </div>
       <div className="Box-footer text-right">
-        <button type="button" className="btn btn-secondary mr-2" data-close-dialog>
+        <button
+          type="button"
+          className="btn btn-secondary mr-2"
+          data-close-dialog
+        >
           Cancel
         </button>
         <ActionButton
@@ -182,31 +202,36 @@ export const Login = () => {
 
 const ActionButton = ({ status, onLogin, onNext, disabled }) => {
   if (status === ProcessStatus.Done) {
-    return <button
-      onClick={onNext}
-      type="button"
-      className="btn btn-primary"
-      autoFocus
-    >
-      Continue
-    </button>;
+    return (
+      <button
+        onClick={onNext}
+        type="button"
+        className="btn btn-primary"
+        autoFocus
+      >
+        Continue
+      </button>
+    );
   } else {
-    return <button
-      disabled={disabled}
-      onClick={onLogin}
-      type="button"
-      className="btn btn-primary"
-      autoFocus
-    >
-      Authenticate
-    </button>;
+    return (
+      <button
+        disabled={disabled}
+        onClick={onLogin}
+        type="button"
+        className="btn btn-primary"
+        autoFocus
+      >
+        Authenticate
+      </button>
+    );
   }
 };
 
-
 const ErrorMessage = ({ error }) => {
   error = error ? error : "Unknown Error";
-  return <div className="flash flash-full flash-error">Login failed: {error}</div>;
+  return (
+    <div className="flash flash-full flash-error">Login failed: {error}</div>
+  );
 };
 const SuccessMessage = () => {
   return <div className="flash flash-full flash-success">Login successful</div>;

@@ -15,6 +15,7 @@ export const useEmitter = emitter => {
   useEffect(
     () => {
       emitter.on("file-slice", filename => {
+        console.log(filename);
         addSlice(filename);
       });
     },
@@ -40,10 +41,11 @@ export const useInit = () => {
 }
 
 export const Container = props => {
+  console.log(props);
   return (
     <GlobalStoreProvider>
       <GlobalStateProvider>
-        <CherryProvider>{props.children}</CherryProvider>
+        <CherryProvider config={props.config}>{props.children}</CherryProvider>
       </GlobalStateProvider>
     </GlobalStoreProvider>
   );
@@ -58,7 +60,7 @@ export function AppContent({ emitter }) {
 
 export const App = props => {
   return (
-    <Container>
+    <Container {...props}>
       <AppContent {...props} />
     </Container>
   );

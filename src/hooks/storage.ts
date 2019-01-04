@@ -6,14 +6,40 @@ export const useStorage = (key, defaultValue?) => {
 
   useEffect(
     () => {
-      chrome.storage.onChanged.addListener(function(changes, namespace) {
+      /**
+       * Fallback for localstorage
+       */
+      if (!chrome.storage) {
+        window.addEventListener(
+          "storage",
+          e => {
+            console.log("Event", e);
+            const val = e.detail.newval;
+            if(val!==storageItem){
+              updateStorage(value);
+            }
+          },
+          false
+        );
 
+        let value = localStorage.getItem(key);
+        if(value){
+          value = JSON.parse(value)
+        } else {
+          value = defaultValue;
+        }
+
+        updateStorage(value);
+        setLoaded(true);
+        return
+      }
+
+      chrome.storage.onChanged.addListener(function(changes, namespace) {
         if (!(key in changes)) {
           return;
         }
 
         let updated = changes[key];
-        console.log("Got updated for ", key, "with value", updated)
 
         if (updated) {
           updateStorage(updated.newValue);
@@ -30,19 +56,21 @@ export const useStorage = (key, defaultValue?) => {
           updateStorage(value);
         }
 
-        console.log("Setting loaded to true");
         setLoaded(true);
       });
 
-      return ()=>{
-        console.log("Should unsubscribe here")
-      }
+      return () => {
+        console.log("Should unsubscribe here");
+      };
     },
     [key]
   );
 
   const updateStorageItem = async value => {
-    console.log("Setting", value, "for key", key);
+    if (!chrome.storage) {
+      return localStorage.setItem(key, JSON.stringify(value));
+    }
+
     return chrome.storage.sync.set({ [key]: value });
   };
 

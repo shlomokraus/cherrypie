@@ -8,18 +8,18 @@ export class CherryPieService {
     private readonly messages: MessagesService
   ) {}
 
-  static parsePrUrl(url) {
+  static parsePrUrl(url): {owner: string, repo: string, number: number} | undefined {
     let parsed = url.split("/");
     if (parsed[2] !== "github.com") {
-      return false;
+      return undefined;
     }
     if (parsed[5] !== "pull") {
-      return false;
+      return undefined;
     }
   
     return { owner: parsed[3], repo: parsed[4], number: parsed[6] };
   };
-  
+
   async init({
     username,
     password,

@@ -42,7 +42,7 @@ export const Review = () => {
   return (
     <div>
       <div className="Box-header">
-        <h3 className="Box-title">Review changes</h3>
+        <h3 className="Box-title">REVIEW CHANGES</h3>
       </div>
 
       <div className="flash flash-full">
