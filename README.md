@@ -1,9 +1,8 @@
 <div align="center">
   <h1>
-<img margin-left="-25px" width="200" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+<img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
       <br />
-      <br />
-      <br />
+  
 
 CHERRY PIE
 
