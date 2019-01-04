@@ -3,7 +3,7 @@
 <img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
       <br />
   
-
+  <br />
 CHERRY PIE
 
 </h1>
