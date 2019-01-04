@@ -19,7 +19,7 @@ export const Files = () => {
   return (
     <div>
       <div className="Box-header">
-        <h3 className="Box-title">Selected files</h3>
+        <h3 className="Box-title">REVIEW SELECTED FILES</h3>
       </div>
 
       <div className="Box-body">

@@ -45,7 +45,7 @@ export const Execute = props => {
         >
           close
         </button>
-        <h3 className="Box-title">Execute</h3>
+        <h3 className="Box-title">EXECUTING</h3>
       </div>
       <RenderStatus status={status} error={error} />
       <div style={{ minHeight: "300px" }}>
