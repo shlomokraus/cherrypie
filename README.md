@@ -10,6 +10,7 @@
 ### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
 
 <p align="center">
+  <br />
 <img width="350" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
 </p>
 
