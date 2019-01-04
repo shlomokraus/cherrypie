@@ -54,7 +54,7 @@ Since cherry-pick is not always possible (as explained before), you need to manu
 
 This extension rose from endless hours of reviewing pull requests where the thought "I wish could just click and split this PR" constantly troubled my restful mind.
 
-### What's in the name?
+### What's with the name?
 
 You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie.
 
