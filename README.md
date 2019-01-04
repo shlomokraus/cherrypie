@@ -1,6 +1,9 @@
 # Cherry Pie
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) [![CircleCI](https://circleci.com/gh/shlomokraus/cherrypie.svg?style=svg)](https://circleci.com/gh/shlomokraus/cherrypie)
+[![Chrome](https://img.shields.io/chrome-web-store/v/fiaignmlhapejpdfbephokpkjnmnaapo.svg)
+[![License](https://img.shields.io/github/license/shlomokraus/cherrypie.svg)
+[![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)
+[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
 
 <p align="center">
 <i>If you can't pick cherries, slice a cherry pie</i>
@@ -11,7 +14,7 @@
 ## TL;DR
 
 This extension adds a button to Github's Pull Request page that allows you to extract files from one branch and stage them into another one. It even opens a new pull request for that branch, free of charge.
-
+[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_496x150.png)
 ## Reason 
 
 Honestly, you’ve worked hard on that feature, but when you opened the pull request you can clearly see it would've made more sense to split it into multiple smaller updates, each with its own PR.
