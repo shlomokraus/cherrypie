@@ -1,3 +1,10 @@
+
+[![Chrome](https://img.shields.io/chrome-web-store/v/fiaignmlhapejpdfbephokpkjnmnaapo.svg)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
+[![License](https://img.shields.io/github/license/shlomokraus/cherrypie.svg)]()
+[![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
+[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
+
+
 # CHERRY PIE 
 
 ### A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST
@@ -51,8 +58,3 @@ You use `cherry-pick` for commits, but when commit history is squashed, it turns
 <p align="center"><br /><i>If you can't pick cherries, slice a cherry pie</i><br /><br /><br /></p>
 
 
-
-[![Chrome](https://img.shields.io/chrome-web-store/v/fiaignmlhapejpdfbephokpkjnmnaapo.svg)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
-[![License](https://img.shields.io/github/license/shlomokraus/cherrypie.svg)]()
-[![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
-[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
