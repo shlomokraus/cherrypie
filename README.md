@@ -1,13 +1,16 @@
-# Cherry Pie
 
-[![Chrome](https://img.shields.io/chrome-web-store/v/fiaignmlhapejpdfbephokpkjnmnaapo.svg)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
-[![License](https://img.shields.io/github/license/shlomokraus/cherrypie.svg)]()
-[![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
-[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
+<p align="center">
+<img width="250" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+</p>
+
+# Cherry Pie 
+
 
 ### _A Chrome extension for crafting the perfect pull request_
 
-[![https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo](https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_340x96.png)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
+<p align="left">
+<img src="https://developer.chrome.com/webstore/images/ChromeWebStore_Badge_v2_206x58.png" />
+</P>
 
 ## TL;DR
 
@@ -46,5 +49,11 @@ This extension rose from endless hours of reviewing pull requests where the thou
 
 You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie. 
 
-<p align="center"><br /><br />If you can't pick cherries, slice a cherry pie</p>
+<p align="center"><br />If you can't pick cherries, slice a cherry pie<br /><br /><br /></p>
 
+
+
+[![Chrome](https://img.shields.io/chrome-web-store/v/fiaignmlhapejpdfbephokpkjnmnaapo.svg)](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo)
+[![License](https://img.shields.io/github/license/shlomokraus/cherrypie.svg)]()
+[![CircleCI2](https://img.shields.io/circleci/project/github/shlomokraus/cherrypie/next.svg)]()
+[![Greenkeeper badge](https://badges.greenkeeper.io/shlomokraus/cherrypie.svg)](https://greenkeeper.io/) 
