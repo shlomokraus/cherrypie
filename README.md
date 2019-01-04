@@ -1,6 +1,6 @@
 <div align="center">
   <h1>
-<img width="300" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+<img width="200" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
       <br />
       <br />
 
