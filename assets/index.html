@@ -1,12 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>webpack 4 quickstart</title>
+	<meta charset="utf-8">
+	<title>webpack 4 quickstart</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript" src="https://unpkg.com/details-dialog-element@latest"></script>
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/10.10.2/build.css" type="text/css" />
+	<style>
+		.details-with-dialog[open]>summary {
+			cursor: default;
+		}
+
+		.details-with-dialog[open]>summary:before {
+			content: " ";
+			background: rgba(0, 0, 0, 0.3);
+			display: block;
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 1;
+		}
+
+		.mh-80 {
+			max-height: 80vh;
+		}
+
+		.narrow {
+			width: 400px;
+		}
+
+		.wide {
+			width: 640px;
+		}
+
+		details-dialog {
+			position: fixed;
+			margin: 10vh auto;
+			top: 0;
+			left: 50%;
+			transform: translateX(-50%);
+			z-index: 999;
+			max-height: 80vh;
+			max-width: 90vw;
+			width: 448px;
+		}
+
+	</style>
 </head>
+
 <body>
-    Hello
-    <div id="app">
-    </div>
+	<script>
+		window.cherrypie = {
+			owner: "shlomokraus",
+			repo: "cherrypie",
+			number: 5
+		}
+
+	</script>
+	Test Page
+
+
+	<div class="diffbar">
+		<div class="pr-review-tools">
+			Button:
+		</div>
+	</div>
+	<div class="file-header">
+		<div class="file-info">
+            <span></span>
+			<a href="#diff-e3e3709caf1b0db2882b08abef48b870" class="link-gray-dark" title="config/production.json">config/production.json</a>
+            <div class="file-actions">
+				<div class="BtnGroup"></div>
+			</div>
+		</div>
+	</div>
 </body>
+
 </html>

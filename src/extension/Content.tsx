@@ -15,7 +15,7 @@ function updateDom(count = 0) {
       const file = files[i];
       const name = file.getElementsByClassName("file-info")[0].children[1]
         .title;
-
+      
       const actions = file
         .getElementsByClassName("file-actions")[0]
         .getElementsByClassName("BtnGroup")[0];
@@ -91,10 +91,12 @@ const useInjectMainSliceBtn = () => {
   const location = useWindowLocation();
   useEffect(
     () => {
-	 const toolbar = document.querySelector(".diffbar .pr-review-tools");
+      const config = window.cherrypie; // Enable a way to inject config
+    const toolbar = document.querySelector(".diffbar .pr-review-tools");
       if (!toolbar) {
         return
       }
+
       const existing = document.querySelector(".cherry-pie-toolbar");
       if (existing) {
         return
@@ -102,7 +104,7 @@ const useInjectMainSliceBtn = () => {
       const app = document.createElement("div");
       app.className = "diffbar-item cherry-pie-toolbar";
       toolbar.insertBefore(app, toolbar.firstChild);
-      ReactDOM.render(<App emitter={emitter} />, app);
+      ReactDOM.render(<App config={config} emitter={emitter} />, app);
     },
     [location]
   );

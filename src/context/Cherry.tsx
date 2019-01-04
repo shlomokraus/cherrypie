@@ -9,19 +9,21 @@ export const CherryContext = React.createContext();
  * Parse url and initialize github service and cherry.
  * Execute on every location change but only initialize if this is a pull request page. 
  */
-const useCherryClient = () => {
+const useCherryClient = (config?: { owner: string, repo: string, number: number}) => {
   const [cherry, setCherry] = useState();
   const location = useWindowLocation();
  
   // Construct client
   useEffect(
     () => {
-      const parsed = CherryPieService.parsePrUrl(location);
-      if (!parsed) {
-        setCherry(undefined);
+      if(!config) {
+         config = CherryPieService.parsePrUrl(location);
+        if (!config) {
+          setCherry(undefined);
+        }
       }
-
-      const github = new GithubService({ ...parsed, refPrefix: "heads" } as any);
+    
+      const github = new GithubService({ ...config, refPrefix: "heads" } as any);
       const cherryClient = new CherryPieService(github, {
         print: (message) => dispatch({type: "add-message", value: message})
       });
@@ -37,7 +39,8 @@ const useCherryClient = () => {
 
 
 export const CherryProvider = props => {
-  const client = useCherryClient();
+  const config = props.config;
+  const client = useCherryClient(config);
   return (
     <CherryContext.Provider value={client}>
       {props.children}
