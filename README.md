@@ -1,7 +1,20 @@
 
 
 <p align="center">
-<img width="350" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+  <br />
+   <br />
+<img width="150" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/logo.svg?sanitize=true" />
+  <h1>CHERRY PIE</h1>
+  <br />
+   <br />
+   <sup>
+   <br />
+   <br />
+  <h3>A CHROME EXTENSION FOR CRAFTING THE PERFECT PULL REQUEST</h3>
+   <br />
+    <br />
+  </sup>
+   
 </p>
 
 
