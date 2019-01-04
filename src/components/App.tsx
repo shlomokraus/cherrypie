@@ -6,6 +6,7 @@ import { GlobalStoreProvider } from "../context/GlobalStore";
 import { useSlices } from "../hooks/slices";
 import { useAuth } from "../hooks/auth";
 import { useLogin } from "../hooks/login";
+import { useCurrentPr } from "../hooks/currentPr";
 
 /**
  * Listen to events coming in from external components 
@@ -41,7 +42,6 @@ export const useInit = () => {
 }
 
 export const Container = props => {
-  console.log(props);
   return (
     <GlobalStoreProvider>
       <GlobalStateProvider>
@@ -54,7 +54,7 @@ export const Container = props => {
 export function AppContent({ emitter }) {
   useEmitter(emitter);
   useInit();
-
+  useCurrentPr();
   return <Root />;
 }
 

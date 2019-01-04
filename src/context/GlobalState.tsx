@@ -25,7 +25,9 @@ const { GlobalStateProvider, useGlobalState } = createGlobalState({
     route: "/login",
     targetBranch: "",
     commitMessage: "",
-    pullRequestTitle: ""
+    pullRequestTitle: "",
+    currentPr: PullsGetResponse,
+    currentPrError: undefined as any
 });
 export {GlobalStateProvider, useGlobalState};
 

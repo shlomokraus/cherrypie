@@ -6,6 +6,7 @@ import { useSlice } from "../hooks/cherry";
 import { ProcessStatus } from "../constants";
 import { useGlobalStore, dispatch } from "../context/GlobalStore";
 import Octicon, {Check, X, MarkGithub} from '@githubprimer/octicons-react'
+import { useCurrentPr } from "../hooks/currentPr";
 
 export const Execute = props => {
   const { slices, setSlices } = useSlices();
@@ -15,13 +16,12 @@ export const Execute = props => {
   const [target] = useGlobalState("targetBranch");
   const [commitMessage] = useGlobalState("commitMessage");
   const [prTitle] = useGlobalState("pullRequestTitle");
-
+  const { pr } = useCurrentPr();
   const cherry = useContext(CherryContext);
-
+  
   useEffect(() => {
-    const pr = cherry.pr();
     if (!pr) {
-      return <div>Pull request no loaded</div>;
+      return
     }
     slice({
       paths: slices,
@@ -32,7 +32,11 @@ export const Execute = props => {
       message: commitMessage,
       prTitle
     });
-  }, []);
+  }, [pr]);
+
+  if (!pr) {
+    return <div>Pull request no loaded</div>;
+  }
 
   return (
     <div>
@@ -42,13 +46,13 @@ export const Execute = props => {
       <RenderStatus status={status} error={error} />
       <div style={{ minHeight: "300px" }}>
         {messages.map((message, index) => {
-          let Icon = <Octicon  width="16" icon={Check} />;
+          let Icon = <Octicon  width={16} icon={Check} />;
           const isLast = index === messages.length - 1;
           if (isLast) {
             if (status === ProcessStatus.Failed) {
-              Icon = <Octicon  width="16" icon={X} />;
+              Icon = <Octicon  width={16} icon={X} />;
             } else if (status === ProcessStatus.Working) {
-              Icon = <Octicon width="16" className="octicon octicon-mark-github anim-pulse" icon={MarkGithub} />;
+              Icon = <Octicon width={16} className="octicon octicon-mark-github anim-pulse" icon={MarkGithub} />;
             }
           }
 

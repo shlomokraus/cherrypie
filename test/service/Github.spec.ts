@@ -4,45 +4,35 @@ import shortid from "shortid";
 
 describe.skip("Github Service - Integration Tests", () => {
 
-    const { owner, repo, username, password, number, refPrefix } = config.get("github")
-    describe.skip("init()", ()=>{
-
+    const { owner, repo, username, password, refPrefix, number } = config.get("github")
+    describe("init()", ()=>{
+        
+        // This test is flaky as it sometimes throw "Bad credentials" and other time "Verification Error"
         it.skip("Should reject on not authorized", async () => {
-            const github = new GithubService({owner, repo, number});
-            expect(github.init()).rejects.toEqual(Error("Not authorized"))
+            const github = new GithubService({owner, repo});
+            expect(github.init({ username: "test", password: "test"})).rejects.toEqual(Error("Bad credentials"))
         });
 
-        it("Should load PR after authentication", async () => {
-            const github = new GithubService({owner, repo, number});
+        it("Should verify on correct credentials", async () => {
+            const github = new GithubService({owner, repo});
             await github.init({username, password});
-
-            const pr = github.getPr();
-            expect(pr.number===number);
-        },10000);
-
-        it.skip("Should load PR for public repo", async () => {
-            const github = new GithubService({owner: "probot", repo: "probot.github.io", number:272});
-            await github.init();
-
-            const pr = github.getPr();
-            expect(pr.number===number);
         });
-
-
     });
-
-    describe.skip("After initialized", () => {
+    
+    describe("After initialized", () => {
 
         let github; 
+        let pr;
 
         beforeEach(async ()=>{
-            github = new GithubService({owner, repo, number, refPrefix });
+            github = new GithubService({owner, repo, refPrefix });
             await github.init({username, password});
+            pr = await github.loadPr(number)
         })
 
         it("createBranch()", async () => {
             const branchName = shortid.generate();
-            const sha = github.getPr().base.sha;
+            const sha = pr.base.sha;
             const result = await github.createBranch(branchName, sha);
             expect(result.ref).toContain(branchName);
 
@@ -50,14 +40,14 @@ describe.skip("Github Service - Integration Tests", () => {
         },10000)
       
         it("getTree()", async () => {
-            const sha = github.getPr().base.sha;
+            const sha = pr.base.sha;
             const result = await github.getTree(sha);
             expect(result.sha).toEqual(sha);
         },10000)
 
         it("getFilesFromTree()", async () => {
             const path = "sample.txt";
-            const ref = github.getPr().head.sha;
+            const ref = pr.head.sha;
 
             const result = await github.getFilesFromTree([path], ref);
             expect(result).toHaveLength(1);
@@ -79,7 +69,7 @@ describe.skip("Github Service - Integration Tests", () => {
             const content = "Hello World";
             const path1 = "sample.txt";
             const path2 = shortid.generate()+".txt";
-            const ref = github.getPr().head.ref;
+            const ref = pr.head.ref;
 
             const result = await github.prepareTree([{path: path1}, {path: path2, content}], ref);
             expect(result).toHaveLength(2);
@@ -95,7 +85,7 @@ describe.skip("Github Service - Integration Tests", () => {
             const content = "Hello World";
             const path = "new-file.txt";
 
-            const baseSha = github.getPr().head.sha;
+            const baseSha = pr.head.sha;
 
             const tree = await github.prepareTree([{path: path, content}], baseSha);
 
@@ -105,7 +95,7 @@ describe.skip("Github Service - Integration Tests", () => {
             // Assert
             expect(created).toHaveProperty("sha");
 
-            const base = await github.getTree(github.getPr().base.sha);
+            const base = await github.getTree(pr.base.sha);
             // Tree is created from base, so it should have same number of files plus our new file
             expect(created.tree.length).toEqual(base.tree.length+1);
          
@@ -117,9 +107,9 @@ describe.skip("Github Service - Integration Tests", () => {
             const path = ".gitignore";
             const branchName = shortid.generate();
 
-            const tree = await github.prepareTree([{path, content}], github.getPr().base.ref);
+            const tree = await github.prepareTree([{path, content}], pr.base.ref);
             // create a new branch to be the base of push
-            const sha = github.getPr().base.sha;
+            const sha = pr.base.sha;
             const newBranch = await github.createBranch(branchName, sha);
             const baseSha = newBranch.object.sha;
 
@@ -145,9 +135,9 @@ describe.skip("Github Service - Integration Tests", () => {
             const path = ".gitignore";
             const branchName = shortid.generate();
 
-            const tree = await github.prepareTree([{path, content}], github.getPr().base.ref);
+            const tree = await github.prepareTree([{path, content}], pr.base.ref);
             // create a new branch to be the base of push
-            const sha = github.getPr().base.sha;
+            const sha = pr.base.sha;
             const newBranch = await github.createBranch(branchName, sha);
             const baseSha = newBranch.object.sha;
 
@@ -156,7 +146,7 @@ describe.skip("Github Service - Integration Tests", () => {
             const commit = await github.prepareCommit("This is a test commit", created.sha, baseSha)
             const pushed = await github.pushToBranch(commit.sha, branchName);
 
-            const pr = await github.createPr({title: "This is a test pr", headBranch: branchName, baseBranch: github.getPr().base.ref});
+            const createdPr = await github.createPr({title: "This is a test pr", headBranch: branchName, baseBranch: pr.base.ref});
 
         },10000)
 

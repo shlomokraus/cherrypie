@@ -4,7 +4,6 @@ import { useSlices } from "../hooks/slices";
 import { useGlobalState, InitStatus } from "../context/GlobalState";
 import { useStorage } from '../hooks/storage';
 import { Routes } from "./Routes";
-import "details-dialog-element";
 
 export const Root = () => {
   const { slices } = useSlices();

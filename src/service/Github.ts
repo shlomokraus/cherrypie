@@ -5,20 +5,16 @@ export class GithubService {
   readonly octokit: Octokit;
   private readonly owner;
   private readonly repo;
-  private readonly number;
   private readonly refPrefix?;
   private isInit = false;
-  private pr!: Octokit.PullsGetResponse;
 
   constructor(params: {
     owner: string;
     repo: string;
-    number: number;
     refPrefix?: string;
   }) {
     this.owner = params.owner;
     this.repo = params.repo;
-    this.number = params.number;
     this.refPrefix = params.refPrefix;
     this.octokit = new Octokit();
   }
@@ -27,18 +23,12 @@ export class GithubService {
     return this.isInit;
   }
 
-  getPr() {
-    return this.pr;
-  }
-
   async init({
     username,
     password, 
     token
   }: { username?: string; password?: string, token?: string} = {}) {
     // Authenticate
-    console.log("Initializing with "+username+" "+password+" token: "+token);
-
     if(token){
         await this.octokit.authenticate({
             type: "token",
@@ -60,19 +50,15 @@ export class GithubService {
       throw Error(VERIFY_FAILED_EX);
     }
 
-    // Preload the PR
-    this.pr = await this.loadPr();
-
     // Done
     this.isInit = true;
   }
 
   async verifyAccess() {
     try {
-    this.pr = await this.loadPr();
+      await this.listBranches();
       return true;
     } catch (ex) {
-        console.log("Verify error", ex);
       if (ex.status === 403) {
         return false;
       }
@@ -251,8 +237,11 @@ export class GithubService {
     return ref;
   }
 
-  private async loadPr() {
-    const pr = await this.octokit.pulls.get(this.payload({number: this.number}));
+  private async loadPr(number) {
+    console.log("Loading pr", number);
+    const pr = await this.octokit.pulls.get(this.payload({number}));
+    console.log("Loading pr result", pr);
+
     return pr.data;
   }
 
