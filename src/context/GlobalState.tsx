@@ -18,6 +18,7 @@ export enum InitError {
 }
 
 const { GlobalStateProvider, useGlobalState } = createGlobalState({
+    modalVisible: false, 
     initStatus: ProcessStatus.Idle,
     initError: undefined as any,
     slices: [] as string[],

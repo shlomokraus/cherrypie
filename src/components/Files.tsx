@@ -3,6 +3,7 @@ import { useSlices } from "../hooks/slices";
 import { useGlobalState } from "../context/GlobalState";
 import { CherryContext } from "../context/Cherry";
 import { useCurrentPr } from "../hooks/currentPr";
+import { CloseBtn } from "./CloseBtn";
 
 export const Files = () => {
 	const cherry = useContext(CherryContext);
@@ -46,13 +47,7 @@ export const Files = () => {
 
       <div className="Box-footer text-right">
       
-        <button
-          type="button"
-          className="btn  mr-2"
-          data-close-dialog
-        >
-          Cancel
-        </button>
+        <CloseBtn label="Cancel" />
 		<button
           onClick={() => {
 			  setRoute("/review")}}

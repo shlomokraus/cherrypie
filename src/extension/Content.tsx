@@ -2,6 +2,9 @@ import ReactDOM from "react-dom";
 import React, { useEffect, useState, useRef } from "react";
 import { App } from "../components/App";
 import { useWindowLocation } from "../hooks/windowLocation";
+import Modal from 'react-awesome-modal';
+import { useGlobalState } from '../context/GlobalState';
+import { SliceBtn } from "../components/SliceBtn";
 
 const Emitter = require("tiny-emitter");
 const emitter = new Emitter();
@@ -87,11 +90,12 @@ const useInject = () => {
 
 };
 
-const useInjectMainSliceBtn = () => {
+const useInjectMainSliceBtn = ({emitter}) => {
   const location = useWindowLocation();
+  const [modalVisible, setModalVisible] = useGlobalState("modalVisible");
+
   useEffect(
     () => {
-      const config = window.cherrypie; // Enable a way to inject config
     const toolbar = document.querySelector(".diffbar .pr-review-tools");
       if (!toolbar) {
         return
@@ -104,7 +108,7 @@ const useInjectMainSliceBtn = () => {
       const app = document.createElement("div");
       app.className = "diffbar-item cherry-pie-toolbar";
       toolbar.insertBefore(app, toolbar.firstChild);
-      ReactDOM.render(<App config={config} emitter={emitter} />, app);
+      ReactDOM.render(<SliceBtn emitter={emitter} />, app);
     },
     [location]
   );
@@ -112,8 +116,9 @@ const useInjectMainSliceBtn = () => {
 
 const ContentInject = () => {
   useInject();
-  useInjectMainSliceBtn();
-  return <div />;
+  useInjectMainSliceBtn({emitter});
+  const config = window.cherrypie; // Enable a way to inject config
+  return <App config={config} emitter={emitter} />;
 };
 
 const app = document.createElement("div");

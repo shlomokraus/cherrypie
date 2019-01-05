@@ -5,8 +5,9 @@ import { useGlobalState } from "../context/GlobalState";
 import { useSlice } from "../hooks/cherry";
 import { ProcessStatus } from "../constants";
 import { useGlobalStore, dispatch } from "../context/GlobalStore";
-import Octicon, {Check, X, MarkGithub} from '@githubprimer/octicons-react'
+import Octicon, { Check, X, MarkGithub } from "@githubprimer/octicons-react";
 import { useCurrentPr } from "../hooks/currentPr";
+import { CloseBtn } from "./CloseBtn";
 
 export const Execute = props => {
   const { slices, setSlices } = useSlices();
@@ -18,21 +19,24 @@ export const Execute = props => {
   const [prTitle] = useGlobalState("pullRequestTitle");
   const { pr } = useCurrentPr();
   const cherry = useContext(CherryContext);
-  
-  useEffect(() => {
-    if (!pr) {
-      return
-    }
-    slice({
-      paths: slices,
-      sourceBranch: pr.head.ref,
-      targetBranch: target,
-      baseBranch: pr.base.ref,
-      createPr: true,
-      message: commitMessage,
-      prTitle
-    });
-  }, [pr]);
+
+  useEffect(
+    () => {
+      if (!pr) {
+        return;
+      }
+      slice({
+        paths: slices,
+        sourceBranch: pr.head.ref,
+        targetBranch: target,
+        baseBranch: pr.base.ref,
+        createPr: true,
+        message: commitMessage,
+        prTitle
+      });
+    },
+    [pr]
+  );
 
   if (!pr) {
     return <div>Pull request no loaded</div>;
@@ -46,13 +50,19 @@ export const Execute = props => {
       <RenderStatus status={status} error={error} />
       <div style={{ minHeight: "300px" }}>
         {messages.map((message, index) => {
-          let Icon = <Octicon  width={16} icon={Check} />;
+          let Icon = <Octicon width={16} icon={Check} />;
           const isLast = index === messages.length - 1;
           if (isLast) {
             if (status === ProcessStatus.Failed) {
-              Icon = <Octicon  width={16} icon={X} />;
+              Icon = <Octicon width={16} icon={X} />;
             } else if (status === ProcessStatus.Working) {
-              Icon = <Octicon width={16} className="octicon octicon-mark-github anim-pulse" icon={MarkGithub} />;
+              Icon = (
+                <Octicon
+                  width={16}
+                  className="octicon octicon-mark-github anim-pulse"
+                  icon={MarkGithub}
+                />
+              );
             }
           }
 
@@ -84,19 +94,18 @@ export const Execute = props => {
         >
           Back
         </button>
-        <button
+        <span
           onClick={() => {
             if (status === ProcessStatus.Done) {
               setSlices([]);
             }
           }}
-          disabled={status === ProcessStatus.Working}
-          type="button"
-          className="btn mr-2"
-          data-close-dialog
         >
-          Close
-        </button>
+          <CloseBtn
+            disabled={status === ProcessStatus.Working}
+            label={"Close"}
+          />
+        </span>
       </div>
     </div>
   );
