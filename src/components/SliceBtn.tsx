@@ -2,10 +2,10 @@ import React, {useState, useEffect} from "react";
 
 export const SliceBtn = ({ emitter}) => {
     const [slices, setSlices] = useState([]);
-
     useEffect(()=>{
         emitter.on('slices-updated', (slices)=>{
             setSlices(slices);
+            setTimeout(()=>document.body.click(),2);
         })
     }, []);
 
