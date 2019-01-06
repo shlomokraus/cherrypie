@@ -6,6 +6,7 @@ import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
 import { useGlobalState } from "../context/GlobalState";
 import { useAuth } from "../hooks/auth";
+import { CloseBtn } from "./CloseBtn";
 
 export const Login = () => {
   const { login, status, error } = useLogin();
@@ -103,7 +104,6 @@ export const Login = () => {
                   e.target.value &&
                     updateForm({ field: "authMethod", value: e.target.value });
                 }}
-                defaultValue={authMethod}
                 value={form.authMethod}
               >
                 <option value="password">Password</option>
@@ -182,13 +182,7 @@ export const Login = () => {
         </form>
       </div>
       <div className="Box-footer text-right">
-        <button
-          type="button"
-          className="btn btn-secondary mr-2"
-          data-close-dialog
-        >
-          Cancel
-        </button>
+        <CloseBtn label={"Cancel"} />
         <ActionButton
           status={status}
           disabled={!getSubmitEnabled()}

@@ -2,6 +2,7 @@ import { CherryPieService} from "../../src/service/CherryPie";
 import { GithubService } from "../../src/service/Github";
 import { MessagesService } from "../../src/service/Messages";
 import config from "config";
+import shortid from "shortid";
 
 describe.skip("CherryPie Service - Integration Tests", () => {
 
@@ -12,8 +13,8 @@ describe.skip("CherryPie Service - Integration Tests", () => {
     }
 
     beforeAll(async ()=>{
-        const { owner, repo, username, password, number, refPrefix } = config.get("github")
-        github = new GithubService({owner, repo, number, refPrefix});
+        const { owner, repo, username, password, refPrefix } = config.get("github")
+        github = new GithubService({owner, repo, refPrefix});
         await github.init({username, password});
         cherry = new CherryPieService(github, messageService);
     });
@@ -23,11 +24,7 @@ describe.skip("CherryPie Service - Integration Tests", () => {
     });
 
     it("slice()", async () => {
-        const paths = ["packages/module-web-launcher/src/ioc.ts"]
-        const sourceBranch = "new-web-logger";
-        const targetBranch = "new-web-logger-slice";
-        const baseBranch = "master";
-
+        const { paths, sourceBranch, targetBranch, baseBranch } = config.get("test.slice");
         const result = await cherry.slice({paths, sourceBranch, targetBranch, baseBranch});
         
         const verifyTarget = await github.getBranch(targetBranch);
@@ -38,7 +35,9 @@ describe.skip("CherryPie Service - Integration Tests", () => {
         const target = await github.getFileContent(paths[0], verifyTarget.commit.sha);
         const source = await github.getFileContent(paths[0], verifySource.commit.sha);
         expect(target).toEqual(source);
-       // await github.deleteBranch(targetBranch);
+        
+        // Cleanup
+        await github.deleteBranch(targetBranch);
     }, 20000)
 
 })

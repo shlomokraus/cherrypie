@@ -4,20 +4,9 @@ import { useSlices } from "../hooks/slices";
 import { useGlobalState, InitStatus } from "../context/GlobalState";
 import { useStorage } from '../hooks/storage';
 import { Routes } from "./Routes";
-import "details-dialog-element";
-
+import Modal  from "react-awesome-modal";
 export const Root = () => {
-  const { slices } = useSlices();
- 
-  return (
-    true ? <details className="details-reset details-with-dialog mt-4">
-      <summary className="btn btn-sm  btn-purple" aria-haspopup="dialog">
-        Cherry Slice
-        <span className="ml-2">{slices.length}</span>
-      </summary>
-      <details-dialog className="details-dialog  anim-fade-in fast narrow" role="dialog">
-			<div className="Box d-flex flex-column" ><Routes /></div>
-      </details-dialog>
-    </details> : ""
+  const [modalVisible, setModalVisible] = useGlobalState("modalVisible");
+  return (<Modal width="450" visible={modalVisible} onClickAway={()=>setModalVisible(false)}><div className="Box d-flex flex-column" ><Routes /></div></Modal>
   );
 };

@@ -17,7 +17,7 @@ export class CherryPieService {
       return undefined;
     }
   
-    return { owner: parsed[3], repo: parsed[4], number: parsed[6] };
+    return { owner: parsed[3], repo: parsed[4], number: Number(parsed[6])  };
   };
 
   async init({
@@ -35,10 +35,6 @@ export class CherryPieService {
 
   client() {
     return this.github;
-  }
-
-  pr() {
-    return this.github.getPr();
   }
 
   async slice({

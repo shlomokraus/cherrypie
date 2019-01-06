@@ -3,6 +3,8 @@ import { useSlices } from "../hooks/slices";
 import { useGlobalState } from "../context/GlobalState";
 import { CherryContext } from "../context/Cherry";
 import shortid from "shortid";
+import { useCurrentPr } from "../hooks/currentPr";
+import { CloseBtn } from "./CloseBtn";
 
 export const Review = () => {
   const cherry = useContext(CherryContext);
@@ -12,7 +14,7 @@ export const Review = () => {
   const [commitMessage, setCommitMessage] = useGlobalState("commitMessage");
   const [prTitle, setPrTitle] = useGlobalState("pullRequestTitle");
 
-  const pr = cherry.pr();
+  const {pr} = useCurrentPr();
   if (!pr) {
    return <div>Pull request no loaded</div>;
   }
@@ -109,9 +111,7 @@ export const Review = () => {
       </div>
 
       <div className="Box-footer text-right">
-        <button type="button" className="btn  mr-2" data-close-dialog>
-          Cancel
-        </button>
+       <CloseBtn label={"Cancel"} />
         <button type="button" className="btn  mr-2" onClick={()=>setRoute("/files")}>
           Back
         </button>
