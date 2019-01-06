@@ -7,6 +7,17 @@
       "asset": "extension.zip"
     }
   ],
+  "plugins": [
+      ["@semantic-release/commit-analyzer", {
+      "preset": "angular",
+      "releaseRules": [
+        {"type": "update", "release": "patch"}
+      ],
+      "parserOpts": {
+        "noteKeywords": ["BREAKING CHANGE", "BREAKING CHANGES"]
+      }
+    }]
+  ],
   "publish": [
     {
       "path": "semantic-release-chrome",
