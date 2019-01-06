@@ -7,6 +7,7 @@ import { ProcessStatus } from "../constants";
 import { useGlobalState } from "../context/GlobalState";
 import { useAuth } from "../hooks/auth";
 import { CloseBtn } from "./CloseBtn";
+import CherryLogo from "../../assets/logo.svg";
 
 export const Login = () => {
   const { login, status, error } = useLogin();
@@ -90,7 +91,10 @@ export const Login = () => {
       </div>
       <RenderStatus status={status} error={error} />
       <div className="Box-body ">
-        <h3 className="f1-light text-center ">Authentication</h3>
+        <div css={{display: "flex", alignItems: "center", flexDirection: "column"}}>
+          <img css={{width:"250px"}} src={CherryLogo} />
+        </div>
+        <h3 css={{marginBottom: "20px"}} className="f1-light text-center ">Authentication</h3>
         <form>
           <dl className="form-group">
             <dt>
@@ -107,7 +111,7 @@ export const Login = () => {
                 value={form.authMethod}
               >
                 <option value="password">Password</option>
-                <option value="token">Token</option>
+                <option value="token">Personal Access Token</option>
               </select>
             </dd>
           </dl>
