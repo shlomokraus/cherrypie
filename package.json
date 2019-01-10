@@ -28,7 +28,7 @@
 		"@emotion/core": "^10.0.5",
 		"@emotion/styled": "^10.0.5",
 		"@githubprimer/octicons-react": "^8.2.0",
-		"@octokit/rest": "^16.3.0",
+		"@octokit/rest": "^16.8.0",
 		"@semantic-release/github": "^5.2.8",
 		"@types/jest": "^23.3.10",
 		"@types/node": "^10.12.18",
