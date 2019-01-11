@@ -12,6 +12,7 @@
 		"prebuild": "rimraf ./dist",
 		"build": "webpack --mode production",
 		"release": "semantic-release",
+		"storybook": "start-storybook -p 9001 -c .storybook",
 		"test": "jest --config ./jest.config.js --verbose",
 		"test:watch": "jest --config ./jest.config.js --watch --runInBand --verbose --coverage=false"
 	},
@@ -30,6 +31,7 @@
 		"@githubprimer/octicons-react": "^8.2.0",
 		"@octokit/rest": "^16.3.0",
 		"@semantic-release/github": "^5.2.8",
+		"@storybook/react": "^4.1.6",
 		"@types/jest": "^23.3.10",
 		"@types/node": "^10.12.18",
 		"babel-loader": "^8.0.4",
@@ -37,6 +39,7 @@
 		"config": "^3.0.1",
 		"copy-webpack-plugin": "^4.6.0",
 		"details-dialog-element": "^1.4.1",
+		"formik": "^1.4.2",
 		"git-url-parse": "^11.1.1",
 		"github-injection": "^1.0.1",
 		"html-webpack-plugin": "^3.2.0",
