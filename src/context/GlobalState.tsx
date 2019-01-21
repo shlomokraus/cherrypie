@@ -28,7 +28,8 @@ const { GlobalStateProvider, useGlobalState } = createGlobalState({
     commitMessage: "",
     pullRequestTitle: "",
     currentPr: PullsGetResponse,
-    currentPrError: undefined as any
+    currentPrError: undefined as any,
+    removeFilesFromSourcePr: false
 });
 export {GlobalStateProvider, useGlobalState};
 

@@ -17,6 +17,7 @@ export const Execute = props => {
   const [target] = useGlobalState("targetBranch");
   const [commitMessage] = useGlobalState("commitMessage");
   const [prTitle] = useGlobalState("pullRequestTitle");
+  const [removeFilesFromSourcePr] = useGlobalState("removeFilesFromSourcePr");
   const { pr } = useCurrentPr();
   const cherry = useContext(CherryContext);
 
@@ -32,7 +33,8 @@ export const Execute = props => {
         baseBranch: pr.base.ref,
         createPr: true,
         message: commitMessage,
-        prTitle
+        prTitle,
+        removeFilesFromSourcePr
       });
     },
     [pr]

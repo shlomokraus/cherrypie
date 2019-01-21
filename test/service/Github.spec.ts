@@ -150,5 +150,11 @@ describe.skip("Github Service - Integration Tests", () => {
 
         },10000)
 
+        it.skip("removeFilesFromSourcePr()", async () => {
+            const content = "Hello World!";
+            const path = ".gitignore";
+            await github.removeFilesFromSourcePr([{path, content}], pr.base.ref);
+        }, 10000)
+
     })
 })

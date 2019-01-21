@@ -13,6 +13,7 @@ export const Review = () => {
   const [target, setTarget] = useGlobalState("targetBranch");
   const [commitMessage, setCommitMessage] = useGlobalState("commitMessage");
   const [prTitle, setPrTitle] = useGlobalState("pullRequestTitle");
+  const [removeFilesFromSourcePr, setRemoveFiles] = useGlobalState("removeFilesFromSourcePr");
 
   const {pr} = useCurrentPr();
   if (!pr) {
@@ -97,6 +98,16 @@ export const Review = () => {
                 aria-describedby="help-text-for-checkbox"
               />
               Open pull request after slice
+            </label>
+          </div>
+          <div className="form-checkbox">
+            <label>
+              <input
+                type="checkbox"
+                checked= {removeFilesFromSourcePr}
+                onChange={e => setRemoveFiles(e.target.checked) }
+              />
+              Remove sliced files from source pull request
             </label>
           </div>
           <input

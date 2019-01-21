@@ -24,8 +24,8 @@ describe.skip("CherryPie Service - Integration Tests", () => {
     });
 
     it("slice()", async () => {
-        const { paths, sourceBranch, targetBranch, baseBranch } = config.get("test.slice");
-        const result = await cherry.slice({paths, sourceBranch, targetBranch, baseBranch});
+        const { paths, sourceBranch, targetBranch, baseBranch, removeFilesFromSourcePr } = config.get("test.slice");
+        const result = await cherry.slice({paths, sourceBranch, targetBranch, baseBranch, removeFilesFromSourcePr});
         
         const verifyTarget = await github.getBranch(targetBranch);
 

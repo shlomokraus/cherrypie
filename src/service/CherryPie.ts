@@ -16,7 +16,7 @@ export class CherryPieService {
     if (parsed[5] !== "pull") {
       return undefined;
     }
-  
+    
     return { owner: parsed[3], repo: parsed[4], number: Number(parsed[6])  };
   };
 
@@ -44,7 +44,8 @@ export class CherryPieService {
     baseBranch,
     message,
     createPr,
-    prTitle
+    prTitle,
+    removeFilesFromSourcePr
   }: {
     paths: string[];
     sourceBranch: string;
@@ -53,7 +54,8 @@ export class CherryPieService {
     message?: string;
     createPr?: boolean;
     prTitle?: string;
-  }) {
+    removeFilesFromSourcePr: boolean;
+    }) {
     const baseSha = await this.getBaseSha(
       sourceBranch,
       baseBranch
@@ -82,6 +84,9 @@ export class CherryPieService {
     // Push the commit to the head ref
     this.messages.print({title: `Updating ref`, text: `${commit.sha} into ${targetBranch} (force: true)`});
     const pushed = await this.github.pushToBranch(commit.sha, targetBranch);
+
+    // Remove sliced files from current pr
+    this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
 
     let pr;
     if(createPr && prTitle){
@@ -137,5 +142,14 @@ export class CherryPieService {
 
   private prepareCommitMessage(sourceBranch, fileCount) {
     return `Adding ${fileCount} files that were sliced from ${sourceBranch}`;
+  }
+
+  private async removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch) {
+    if (!removeFilesFromSourcePr) {
+      return;
+    }
+
+    await this.github.removeFilesFromPR(files, sourceBranch, baseSha);
+    this.messages.print({ title: `Removing sliced files from `, text: `${sourceBranch}` });
   }
 }
