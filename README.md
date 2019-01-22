@@ -32,6 +32,8 @@ Honestly, you’ve worked hard on that feature, but when you opened the pull req
 Since your commit history is unreadable, you can't use `git cherry-pick` and wish you could go back in time and turn it into something that plays nicely in `git log`.
 
 Now you can.
+
+
 <h1 align="center"><sub>INSTALL & USAGE</sub></h1>
 
 <div align="center">
@@ -40,6 +42,13 @@ Now you can.
     <br />
   </h1>
 </div>
+
+1. Install the extension from [Chrome store](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo). 
+2. You will see a `Slice` button appears in every pull request files tab. 
+3. After selecting files you will notice a purple button appears at the toolbar, clicking it will open Cherry Pie interface as a modal. 
+4. You will need to add your credentials, either password or token.
+5. Review changes, enter pull request title and click Slice!
+
 <h1 align="center"><sub>BACKGROUND</sub></h1>
 
 _Cherry picking_ is a perfect git command which, in a perfect world, allows a perfect programmer to carefully pick her commits and stage them into a new branch, where they can be pulled into master in perfectly organized pieces.
