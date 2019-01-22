@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  build-test:
     docker:
       # specify the version you desire here
       - image: circleci/node:9.10.0-browsers
@@ -68,21 +68,43 @@ jobs:
           root: .
           paths: [.]
 
-  release:
+  build-release:
     docker:
       # specify the version you desire here
       - image: circleci/node:9.10.0-browsers
+
+    working_directory: ~/repo
+
     steps:
-      - attach_workspace:
-          at: ~/repo
-      - run: cd /home/circleci/repo
-      - run: yarn semantic-release
+      - checkout
+     - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "package.json" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Building
+          command: |
+            yarn run build
+      - run:
+          name: Release
+          command: |
+            yarn semantic-release
+
         
 workflows:
   version: 2
   branch:
     jobs:
-      - build:
+      - build-test:
           filters:
             branches:
               ignore:
@@ -90,12 +112,9 @@ workflows:
 
   master:
     jobs:
-      - build:
+      - build-release:
           filters:
             branches:
               only:
                 - master
-      - release:
-          requires:
-            - build
 
