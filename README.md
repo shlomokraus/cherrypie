@@ -32,10 +32,11 @@ Honestly, you’ve worked hard on that feature, but when you opened the pull req
 Since your commit history is unreadable, you can't use `git cherry-pick` and wish you could go back in time and turn it into something that plays nicely in `git log`.
 
 Now you can.
+<h1 align="center"><sub>INSTALL & USAGE</sub></h1>
 
 <div align="center">
   <h1>
-    <img width="750" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow.gif?sanitize=true" />
+    <img width="650" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow.gif?sanitize=true" />
     <br />
   </h1>
 </div>
