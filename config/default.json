@@ -1,0 +1,19 @@
+{
+	"github": {
+		"owner": "shlomokraus",
+		"repo": "cherrypie-test",
+		"number": 1,
+		"refPrefix": "heads"
+	},
+	"test": {
+        "live": {
+            "url": "https://github.com/shlomokraus/cherrypie-test/pull/1/files"
+        },
+		"slice": {
+			"paths": ["file1.js"],
+			"sourceBranch": ["test-branch"],
+			"targetBranch": ["test-branch-sliced"],
+			"baseBranch": "master"
+		}
+	}
+}

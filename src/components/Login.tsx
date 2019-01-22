@@ -64,7 +64,7 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <div className="cherry-login-page">
       <Formik
         validateOnChange={false}
         validate={validate}
@@ -229,7 +229,7 @@ const AuthenticationHeader = () => (
   </>
 );
 
-const ActionButton = ({ status, onLogin, onNext, disabled }) => {
+const ActionButton = ({ status, onNext, disabled }) => {
   if (status === ProcessStatus.Done) {
     return (
       <button
@@ -246,6 +246,7 @@ const ActionButton = ({ status, onLogin, onNext, disabled }) => {
       <button
         disabled={disabled}
         type="submit"
+        name="submit"
         className="btn btn-primary"
         autoFocus
       >

@@ -42,7 +42,7 @@ export const Review = () => {
   };
 
   return (
-    <div>
+    <div className="cherry-review-page">
       <Formik
       enableReinitialize={true}
         validate={validate}

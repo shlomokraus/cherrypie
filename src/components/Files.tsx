@@ -19,7 +19,7 @@ export const Files = () => {
   }
 
   return (
-    <div>
+    <div className="cherry-files-page">
       <div className="Box-header">
         <h3 className="Box-title">REVIEW SELECTED FILES</h3>
       </div>
@@ -35,12 +35,12 @@ export const Files = () => {
       >
         {slices &&
           slices.map((filename, index) => (
-            <div key={index+"-file"}className="Box-row .Box-row--hover-blue d-flex flex-items-center">
+            <div key={index+"-file"}className="Box-row .Box-row--hover-blue d-flex flex-items-center cherry-file-list-item">
               <div className="flex-auto ">
                 <div className="float-left m-1 mr-2"><FileIcon /></div>
-                {filename}
+                <span className="file-name">{filename}</span>
               </div>
-			  <div style={{cursor:"pointer"}}  onClick={()=>removeSlice(filename)}><TrashIcon /></div>
+			  <div style={{cursor:"pointer"}} className="remove-file"  onClick={()=>removeSlice(filename)}><TrashIcon /></div>
             </div>
           ))}
       </div>

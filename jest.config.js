@@ -1,10 +1,13 @@
 module.exports = {
     testEnvironment: "jsdom",
   rootDir: ".",
-  verbose: false, 
+  verbose: true, 
   globals: {
     "ts-jest": {
-      tsConfigFile: "tsconfig.json"
+      tsConfig: "tsconfig.json",
+      diagnostics: {
+        warnOnly: true
+      }
     }
   },
   transform: {
@@ -18,3 +21,4 @@ module.exports = {
   modulePathIgnorePatterns: ["/cloned/"],
   testEnvironment: "node"
 };
+  

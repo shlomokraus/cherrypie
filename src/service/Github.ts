@@ -43,13 +43,11 @@ export class GithubService {
     } else {
         throw Error(MISSING_CREDENTIALS);
     }
-    console.log("Iinited", username, password, token)
     // Verify we have access
     const result = await this.verifyAccess();
     if (!result) {
       throw Error(VERIFY_FAILED_EX);
     }
-    console.log("Verified", username, password, token)
 
     // Done
     this.isInit = true;
@@ -161,7 +159,6 @@ export class GithubService {
      const missing = paths.filter(path => fetched.indexOf(path)<0);
      for(let i=0; i<missing.length; i++){
         const path = missing[i];
-        console.log("Getting file", path);
         try{
             const blob = await this.getFile(path, baseRef);
             blobs.push({path: path, mode: "100644", type: "blob", sha: blob.sha })
@@ -239,9 +236,7 @@ export class GithubService {
   }
 
   private async loadPr(number) {
-    console.log("Loading pr", number);
     const pr = await this.octokit.pulls.get(this.payload({number}));
-    console.log("Loading pr result", pr);
 
     return pr.data;
   }
@@ -251,7 +246,6 @@ export class GithubService {
       owner: this.owner,
       repo: this.repo
     };
-    console.log(params, values);
     return Object.assign(params, values);
   }
 }

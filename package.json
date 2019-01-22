@@ -14,7 +14,7 @@
 		"release": "semantic-release",
 		"storybook": "start-storybook -p 9001 -c .storybook",
 		"test": "jest --config ./jest.config.js --verbose",
-		"live": "ts-node ./test/puppeteer",
+		"live": "jest  --runInBand --config ./jest.chrome.js",
 		"test:watch": "jest --config ./jest.config.js --watch --runInBand --verbose --coverage=false"
 	},
 	"dependencies": {
@@ -34,7 +34,9 @@
 		"@semantic-release/github": "^5.2.8",
 		"@storybook/react": "^4.1.6",
 		"@types/jest": "^23.3.10",
+		"@types/jest-environment-puppeteer": "^2.2.1",
 		"@types/node": "^10.12.18",
+		"@types/puppeteer": "^1.11.1",
 		"babel-loader": "^8.0.4",
 		"babel-plugin-emotion": "^10.0.5",
 		"config": "^3.0.1",
@@ -47,6 +49,8 @@
 		"inversify": "^5.0.1",
 		"jest": "^23.6.0",
 		"jest-cli": "^23.6.0",
+		"jest-environment-puppeteer": "^3.8.0",
+		"jest-puppeteer": "^3.8.0",
 		"lodash": "^4.17.11",
 		"react": "16.7.0-alpha.2",
 		"react-awesome-modal": "^2.0.5",
