@@ -33,6 +33,12 @@ Since your commit history is unreadable, you can't use `git cherry-pick` and wis
 
 Now you can.
 
+<div align="center">
+  <h1>
+    <img width="4550" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow?sanitize=true" />
+    <br />
+  </h1>
+</div>
 <h1 align="center"><sub>BACKGROUND</sub></h1>
 
 _Cherry picking_ is a perfect git command which, in a perfect world, allows a perfect programmer to carefully pick her commits and stage them into a new branch, where they can be pulled into master in perfectly organized pieces.
