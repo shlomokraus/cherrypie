@@ -17,7 +17,6 @@ export const Execute = props => {
   const [messages] = useGlobalStore("messages");
   const [route, setRoute] = useGlobalState("route");
   const { pr } = useCurrentPr();
-  const cherry = useContext(CherryContext);
   const [cantRun, setCantRun] = useState(undefined);
   useEffect(
     () => {

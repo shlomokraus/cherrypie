@@ -14,6 +14,7 @@
 		"release": "semantic-release",
 		"storybook": "start-storybook -p 9001 -c .storybook",
 		"test": "jest --config ./jest.config.js --verbose",
+		"live": "ts-node ./test/puppeteer",
 		"test:watch": "jest --config ./jest.config.js --watch --runInBand --verbose --coverage=false"
 	},
 	"dependencies": {
@@ -72,5 +73,8 @@
 		"webpack-cli": "^3.1.2",
 		"webpack-dev-server": "^3.1.14",
 		"webpack-livereload-plugin": "^2.2.0"
+	},
+	"devDependencies": {
+		"puppeteer": "^1.11.0"
 	}
 }
