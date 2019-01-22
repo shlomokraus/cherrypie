@@ -64,10 +64,6 @@ jobs:
           path: ./test/puppeteer
           destination: live-snapshots
 
-      - persist_to_workspace:
-          root: .
-          paths: [.]
-
   build-release:
     docker:
       # specify the version you desire here
