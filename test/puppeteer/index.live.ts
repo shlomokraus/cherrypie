@@ -1,5 +1,7 @@
 import config from "config";
 
+const OUTPUT_DIR = "./test/puppeteer"
+
 const SELECTED_FILENAME = "file1.js";
 const MAIN_SLICE_BTN_WRAPPER = ".cherry-pie-toolbar";
 const MAIN_SLICE_BTN = `${MAIN_SLICE_BTN_WRAPPER} button`;
@@ -13,7 +15,6 @@ const FILES_PAGE = ".cherry-files-page";
 const FILE_ITEM = ".cherry-file-list-item";
 const FILE_ITEM_FILENAME = `${FILE_ITEM} .file-name`;
 const FILE_ITEM_REMOVE = `${FILE_ITEM} .remove-file`;
-
 describe('Cherry Pie Live', () => {
   beforeAll(async () => {
     return page.goto(config.get("test.live.url"));
@@ -48,7 +49,7 @@ describe('Cherry Pie Live', () => {
   it('clicking the main button will show login box', async () => {
     await page.click(MAIN_SLICE_BTN);
     await page.waitForSelector(LOGIN_PAGE);
-    await page.screenshot({path: "./test/output/login.png"});
+    await page.screenshot({path: OUTPUT_DIR+"/login.png"});
   });
 
   it('login with username and password should direct to files page', async () => {
@@ -56,13 +57,13 @@ describe('Cherry Pie Live', () => {
     await page.type(PASSWORD_INPUT, config.get("github.password"));
     await page.click(LOGIN_SUBMIT);
     await page.waitFor(2000);
-    await page.screenshot({path: "./test/output/login-submit.png"});
+    await page.screenshot({path:OUTPUT_DIR+"login-submit.png"});
 
     await page.waitForSelector(FILES_PAGE);
   },10000);
 
   it('should have our selected file listed', async () => {
-    await page.screenshot({path: "./test/output/files.png"});
+    await page.screenshot({path: OUTPUT_DIR+"files.png"});
 
     const item = await page.$(FILE_ITEM_FILENAME);
     const text = await page.evaluate(element => element.textContent, item);
@@ -71,11 +72,11 @@ describe('Cherry Pie Live', () => {
   })
 
   it('clicking trash icon should remove the file', async () => {
-    await page.screenshot({path: "./test/output/files.png"});
+    await page.screenshot({path: OUTPUT_DIR+"files.png"});
     await page.click(FILE_ITEM_REMOVE);
     await page.waitFor(100);
     const item = await page.$(FILE_ITEM_FILENAME);
-    await page.screenshot({path: "./test/output/files-remove.png"});
+    await page.screenshot({path: OUTPUT_DIR+"files-remove.png"});
 
     expect(item).toEqual(null);
   })
