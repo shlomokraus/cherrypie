@@ -43,7 +43,6 @@ export class GithubService {
     } else {
         throw Error(MISSING_CREDENTIALS);
     }
-
     // Verify we have access
     const result = await this.verifyAccess();
     if (!result) {
@@ -160,7 +159,6 @@ export class GithubService {
      const missing = paths.filter(path => fetched.indexOf(path)<0);
      for(let i=0; i<missing.length; i++){
         const path = missing[i];
-        console.log("Getting file", path);
         try{
             const blob = await this.getFile(path, baseRef);
             blobs.push({path: path, mode: "100644", type: "blob", sha: blob.sha })
@@ -206,8 +204,8 @@ export class GithubService {
     return commit.data;
   }
 
-  async createPr({title, headBranch, baseBranch}) {
-     const payload = this.payload({head:headBranch, base: baseBranch, title, maintainer_can_modify: true});
+  async createPr({title, body, headBranch, baseBranch}) {
+     const payload = this.payload({head:headBranch, base: baseBranch, title, body, maintainer_can_modify: true});
     const result = await this.octokit.pulls.create(payload);
     return result.data;
   }
@@ -238,9 +236,7 @@ export class GithubService {
   }
 
   private async loadPr(number) {
-    console.log("Loading pr", number);
     const pr = await this.octokit.pulls.get(this.payload({number}));
-    console.log("Loading pr result", pr);
 
     return pr.data;
   }

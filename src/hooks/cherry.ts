@@ -8,7 +8,7 @@ export const useSlice =  () => {
   const [status, setStatus] = useState(ProcessStatus.Idle);
   const [error, setError] = useState();
 
-  const slice = async ({paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle,message}) =>{
+  const slice = async ({paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle, prBody, message}) =>{
     try {
         dispatch({type: "clear-messages"})
         setStatus(ProcessStatus.Working);
@@ -19,6 +19,7 @@ export const useSlice =  () => {
             baseBranch,
             message,
             createPr, 
+            prBody,
             prTitle
           });
         setStatus(ProcessStatus.Done);

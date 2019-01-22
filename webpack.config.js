@@ -26,7 +26,7 @@ module.exports = {
 		disableHostCheck: true
 	},
 	optimization: {
-		minimize: true
+		minimize: false
 	},
 	resolve: {
 		extensions: [".ts", ".tsx", ".js", ".json"],

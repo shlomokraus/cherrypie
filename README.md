@@ -59,5 +59,28 @@ This extension rose from endless hours of reviewing pull requests where the thou
 
 You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie.
 
+<h1 align="center"><sub>DEVELOPMENT & CONTRIBUTION</sub></h1>
+
+Feel free to request and add features through pull requests. If you got this far you know the rules. 
+
+### Running locally
+#### Build
+
+```
+yarn run build
+```
+Will compile and build a local version inside `dist` folder. Install the extension by going to chrome extension page and clicking `Load Unpacked` then directing to this folder.
+
+```
+yarn run watch
+```
+Will build the package and also reload it whenever you make a change.  
+#### Develop
+```
+yarn run storybook
+```
+Storybook is setup for easier development of the views. 
+
+
 <p align="center"><br /><i>If you can't pick cherries, slice a cherry pie</i><br /><br /><br /></p>
 

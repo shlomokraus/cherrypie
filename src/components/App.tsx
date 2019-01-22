@@ -7,31 +7,30 @@ import { useSlices } from "../hooks/slices";
 import { useAuth } from "../hooks/auth";
 import { useLogin } from "../hooks/login";
 import { useCurrentPr } from "../hooks/currentPr";
-
+import { PrProvider } from "../context/PullRequest";
 /**
- * Listen to events coming in from external components 
+ * Listen to events coming in from external components
  */
 export const useEmitter = emitter => {
   const { addSlice, slices } = useSlices();
   const [modalVisible, setModalVisible] = useGlobalState("modalVisible");
 
-  useEffect(()=>{
-    console.log("Slices updated", slices)
-    emitter.emit("slices-updated", slices);
-  }, [slices]);
-
   useEffect(
     () => {
-      emitter.on("file-slice", filename => {
-        addSlice(filename);
-      });
-    
-      emitter.on("show-modal", filename => {
-        setModalVisible(true)
-      });
+      emitter.emit("slices-updated", slices);
     },
-    []
+    [slices]
   );
+
+  useEffect(() => {
+    emitter.on("file-slice", filename => {
+      addSlice(filename);
+    });
+
+    emitter.on("show-modal", filename => {
+      setModalVisible(true);
+    });
+  }, []);
 };
 
 /**
@@ -49,13 +48,15 @@ export const useInit = () => {
     },
     [cherry, loaded]
   );
-}
+};
 
 export const Container = props => {
   return (
     <GlobalStoreProvider>
       <GlobalStateProvider>
-        <CherryProvider config={props.config}>{props.children}</CherryProvider>
+        <CherryProvider config={props.config}>
+          <PrProvider {...props.config}>{props.children}</PrProvider>
+        </CherryProvider>
       </GlobalStateProvider>
     </GlobalStoreProvider>
   );
