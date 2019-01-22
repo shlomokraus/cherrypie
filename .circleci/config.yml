@@ -46,6 +46,53 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn build
+      - run:
+          name: Building
+          command: |
+            yarn run build
 
-      - run: yarn run live
+      - run:
+          name: Integration tests
+          command: |
+            yarn run test
+
+      - run:
+          name: Live tests
+          command: |
+            yarn run live
+      - store_artifacts:
+          path: ./test/puppeteer
+          destination: live-snapshots
+
+      - persist_to_workspace:
+          root: .
+          paths: [.]
+
+  release:
+    description: "Release extension to store"
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - run: yarn semantic-release
+        
+workflows:
+  branch:
+    jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
+
+  master:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+      - release:
+          context: web
+          requires:
+            - build
+
