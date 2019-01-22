@@ -77,7 +77,7 @@ jobs:
 
     steps:
       - checkout
-     - restore_cache:
+      - restore_cache:
           keys:
           - v1-dependencies-{{ checksum "package.json" }}
           # fallback to using the latest cache if no exact match is found
