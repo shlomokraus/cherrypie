@@ -69,13 +69,13 @@ jobs:
           paths: [.]
 
   release:
-    description: "Release extension to store"
     docker:
       # specify the version you desire here
       - image: circleci/node:9.10.0-browsers
     steps:
       - attach_workspace:
           at: ~/repo
+      - run: cd /home/circleci/repo
       - run: yarn semantic-release
         
 workflows:
