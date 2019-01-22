@@ -24,11 +24,9 @@ const { GlobalStateProvider, useGlobalState } = createGlobalState({
     slices: [] as string[],
     messages: [] as string[],
     route: "/login",
-    targetBranch: "",
-    commitMessage: "",
-    pullRequestTitle: "",
     currentPr: PullsGetResponse,
-    currentPrError: undefined as any
+    currentPrError: undefined as any,
+    sliceInfo: undefined as any
 });
 export {GlobalStateProvider, useGlobalState};
 

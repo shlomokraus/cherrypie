@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState} from "react";
 import { useSlices } from "../hooks/slices";
 import { CherryContext } from "../context/Cherry";
 import { useGlobalState } from "../context/GlobalState";
@@ -10,32 +10,35 @@ import { useCurrentPr } from "../hooks/currentPr";
 import { CloseBtn } from "./CloseBtn";
 
 export const Execute = props => {
+  const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
+
   const { slices, setSlices } = useSlices();
   const { status, error, slice } = useSlice();
   const [messages] = useGlobalStore("messages");
   const [route, setRoute] = useGlobalState("route");
-  const [target] = useGlobalState("targetBranch");
-  const [commitMessage] = useGlobalState("commitMessage");
-  const [prTitle] = useGlobalState("pullRequestTitle");
   const { pr } = useCurrentPr();
   const cherry = useContext(CherryContext);
-
+  const [cantRun, setCantRun] = useState(undefined);
   useEffect(
     () => {
       if (!pr) {
-        return;
+        return setCantRun("Pull request not loaded")
+      }
+      if(!sliceInfo || !sliceInfo.title || !sliceInfo.target){
+        return setCantRun("Missing slice info");
       }
       slice({
         paths: slices,
         sourceBranch: pr.head.ref,
-        targetBranch: target,
+        targetBranch: sliceInfo.target,
         baseBranch: pr.base.ref,
         createPr: true,
-        message: commitMessage,
-        prTitle
+        message: sliceInfo.title,
+        prTitle: sliceInfo.title,
+        prBody: sliceInfo.body
       });
     },
-    [pr]
+    [pr, sliceInfo]
   );
 
   if (!pr) {
@@ -48,6 +51,8 @@ export const Execute = props => {
         <h3 className="Box-title">EXECUTING</h3>
       </div>
       <RenderStatus status={status} error={error} />
+      
+      {cantRun && <ErrorMessage error={cantRun}/>}
       <div style={{ minHeight: "300px" }}>
         {messages.map((message, index) => {
           let Icon = <Octicon width={16} icon={Check} />;
@@ -102,6 +107,7 @@ export const Execute = props => {
           }}
         >
           <CloseBtn
+            resset={status === ProcessStatus.Done}
             disabled={status === ProcessStatus.Working}
             label={"Close"}
           />

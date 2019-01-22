@@ -43,12 +43,13 @@ export class GithubService {
     } else {
         throw Error(MISSING_CREDENTIALS);
     }
-
+    console.log("Iinited", username, password, token)
     // Verify we have access
     const result = await this.verifyAccess();
     if (!result) {
       throw Error(VERIFY_FAILED_EX);
     }
+    console.log("Verified", username, password, token)
 
     // Done
     this.isInit = true;
@@ -206,8 +207,8 @@ export class GithubService {
     return commit.data;
   }
 
-  async createPr({title, headBranch, baseBranch}) {
-     const payload = this.payload({head:headBranch, base: baseBranch, title, maintainer_can_modify: true});
+  async createPr({title, body, headBranch, baseBranch}) {
+     const payload = this.payload({head:headBranch, base: baseBranch, title, body, maintainer_can_modify: true});
     const result = await this.octokit.pulls.create(payload);
     return result.data;
   }
@@ -250,6 +251,7 @@ export class GithubService {
       owner: this.owner,
       repo: this.repo
     };
+    console.log(params, values);
     return Object.assign(params, values);
   }
 }
