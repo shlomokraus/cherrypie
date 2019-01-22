@@ -76,6 +76,7 @@ jobs:
       - run: yarn semantic-release
         
 workflows:
+  version: 2
   branch:
     jobs:
       - build:
