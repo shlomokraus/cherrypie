@@ -96,7 +96,6 @@ workflows:
               only:
                 - master
       - release:
-          context: web
           requires:
             - build
 
