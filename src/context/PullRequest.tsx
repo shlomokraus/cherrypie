@@ -28,8 +28,12 @@ const useLoadCurrentPr = (number?) => {
             return
         }
        
-        cherry.client().loadPr(number).then(setPr).catch(setError);
-    }, [cherry, location]);
+        if(cherry.isInit){
+            cherry.client().loadPr(number).then(setPr).catch(setError);
+        } else {
+            console.log("Cherry not initialize");
+        }
+    }, [cherry, cherry && cherry.isInit, location]);
 
     return { pr, error }
 }
@@ -38,6 +42,5 @@ export const PrContext = React.createContext({pr:undefined, error: undefined});
 
 export const PrProvider = props => {
     const {pr, error} = useLoadCurrentPr(props.number);
-    console.log("PROPS", props);
     return <PrContext.Provider value={{pr, error}}>{props.children}</PrContext.Provider>
 } 

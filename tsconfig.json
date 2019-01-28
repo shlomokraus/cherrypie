@@ -25,8 +25,7 @@
       "noFallthroughCasesInSwitch": false,
       "experimentalDecorators": true,
       "outDir": "dist/lib",
-      "skipLibCheck": true,
-      "typeRoots": ["node_modules/@types"]
+      "skipLibCheck": true
     },
     "include": ["src"],
     "exclude": ["node_modules"]

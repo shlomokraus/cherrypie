@@ -2,7 +2,7 @@ import { GithubService } from "../../src/service/Github";
 import config from "config";
 import shortid from "shortid";
 
-describe.skip("Github Service - Integration Tests", () => {
+describe("Github Service - Integration Tests", () => {
 
     const { owner, repo, username, password, refPrefix, number } = config.get("github")
     describe("init()", ()=>{
@@ -46,12 +46,12 @@ describe.skip("Github Service - Integration Tests", () => {
         },10000)
 
         it("getFilesFromTree()", async () => {
-            const path = "sample.txt";
+            const paths = config.get("test.slice.paths");
             const ref = pr.head.sha;
 
-            const result = await github.getFilesFromTree([path], ref);
+            const result = await github.getFilesFromTree(paths, ref);
             expect(result).toHaveLength(1);
-            expect(result[0].path).toEqual("sample.txt");
+            expect(result[0].path).toEqual(paths[0]);
         })
 
         it("createBlob()", async () => {
@@ -67,7 +67,9 @@ describe.skip("Github Service - Integration Tests", () => {
         
         it("prepareTree() - fetch one and create one", async () => {
             const content = "Hello World";
-            const path1 = "sample.txt";
+            const paths = config.get("test.slice.paths");
+
+            const path1 = paths[0];
             const path2 = shortid.generate()+".txt";
             const ref = pr.head.ref;
 
@@ -104,7 +106,7 @@ describe.skip("Github Service - Integration Tests", () => {
         it("pushToBranch()", async () => {
             // Prepare
             const content = "Hello World!";
-            const path = ".gitignore";
+            const path = config.get("test.slice.paths")[0];
             const branchName = shortid.generate();
 
             const tree = await github.prepareTree([{path, content}], pr.base.ref);
@@ -132,7 +134,7 @@ describe.skip("Github Service - Integration Tests", () => {
         it("createPr()", async () => {
           
             const content = "Hello World!";
-            const path = ".gitignore";
+            const path = config.get("test.slice.paths")[0];
             const branchName = shortid.generate();
 
             const tree = await github.prepareTree([{path, content}], pr.base.ref);
@@ -148,6 +150,7 @@ describe.skip("Github Service - Integration Tests", () => {
 
             const createdPr = await github.createPr({title: "This is a test pr", headBranch: branchName, baseBranch: pr.base.ref});
 
+            // TODO: verify commits and delete branch
         },10000)
 
         it.skip("removeFilesFromSourcePr()", async () => {

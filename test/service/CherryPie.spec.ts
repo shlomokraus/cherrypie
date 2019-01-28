@@ -4,7 +4,7 @@ import { MessagesService } from "../../src/service/Messages";
 import config from "config";
 import shortid from "shortid";
 
-describe.skip("CherryPie Service - Integration Tests", () => {
+describe("CherryPie Service - Integration Tests", () => {
 
     let cherry: CherryPieService;
     let github: GithubService;

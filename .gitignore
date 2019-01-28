@@ -63,3 +63,4 @@ config/local*json
 .DS_Store
 dist
 release.sh
+test/output/*.png

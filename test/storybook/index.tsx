@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { storiesOf } from "@storybook/react";
 import { Button } from "@storybook/react/demo";
 import { Login } from "../../src/components/Login";
+import { Execute } from "../../src/components/Execute";
 import { Files } from "../../src/components/Files";
 import { Review } from "../../src/components/Review";
 import { CherryProvider, CherryContext } from "../../src/context/Cherry";
@@ -30,7 +31,7 @@ const AppWrapper = props => {
       >
         <GlobalStoreProvider>
           <GlobalStateProvider>
-            <CherryProvider>
+            <CherryProvider config={{owner: "shlomokraus", repo: "cherrypie", number: 5}}>
               <PrContext.Provider value={{ pr: GetPullsResponseMock }}>
                 {props.children}
               </PrContext.Provider>
@@ -43,21 +44,36 @@ const AppWrapper = props => {
 };
 storiesOf("Authentication Page", module).add("Default", () => (
   <AppWrapper>
-    {" "}
     <Login />
   </AppWrapper>
 ));
 
 storiesOf("Files Page", module).add("Default", () => (
   <AppWrapper>
-    {" "}
     <Files />
   </AppWrapper>
 ));
 
 storiesOf("Review Page", module).add("Default", () => (
   <AppWrapper>
-    {" "}
     <Review />
   </AppWrapper>
 ));
+
+storiesOf("Execute Page", module).add("Default", () => (
+  <AppWrapper>
+    <Execute />
+  </AppWrapper>
+)).add("With data", () => {
+  return <AppWrapper>
+    <ExecuteTest />
+  </AppWrapper>
+});
+
+
+const ExecuteTest = (props) => {
+
+  return <>
+    <Review />
+  <Execute /></>
+}

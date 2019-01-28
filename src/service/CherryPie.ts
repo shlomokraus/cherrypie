@@ -2,7 +2,7 @@ import { GithubService } from "./Github";
 import { MessagesService } from "./Messages";
 
 export class CherryPieService {
-  private isInit = false;
+  public isInit = false;
   constructor(
     private readonly github: GithubService,
     private readonly messages: MessagesService
@@ -45,27 +45,33 @@ export class CherryPieService {
     message,
     createPr,
     prTitle,
+    prBody,
     removeFilesFromSourcePr
   }: {
     paths: string[];
     sourceBranch: string;
     targetBranch: string;
     baseBranch: string;
+    removeFilesFromSourcePr: boolean;
     message?: string;
     createPr?: boolean;
     prTitle?: string;
-    removeFilesFromSourcePr: boolean;
-    }) {
+    prBody?: string;
+  }) {
     const baseSha = await this.getBaseSha(
       sourceBranch,
       baseBranch
     );
+
+    const files = paths.map(path => ({ path }));
+    // Remove sliced files from current pr
+    this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
+
     this.messages.print({title: `Verifying branch`, text: `creating ${targetBranch} based on ${baseBranch}`});
     await this.verifyTarget(targetBranch, baseSha);
 
     // Prepare the blobs
     this.messages.print({title: `Preparing tree`, text: `with ${paths.length} updates from ${sourceBranch} `});
-    const files = paths.map(path => ({ path }));
     const blobs = await this.github.prepareTree(files, sourceBranch);
 
     // Create the tree from all the blobs
@@ -85,13 +91,10 @@ export class CherryPieService {
     this.messages.print({title: `Updating ref`, text: `${commit.sha} into ${targetBranch} (force: true)`});
     const pushed = await this.github.pushToBranch(commit.sha, targetBranch);
 
-    // Remove sliced files from current pr
-    this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
-
     let pr;
     if(createPr && prTitle){
         this.messages.print({title: `Creating pull request`, text: `from ${targetBranch} into ${baseBranch}`});
-        pr = await this.github.createPr({title: prTitle, headBranch: targetBranch, baseBranch });
+        pr = await this.github.createPr({title: prTitle, body: prBody, headBranch: targetBranch, baseBranch });
 
     } 
     let text =  `into ${pushed.ref}`;
@@ -148,6 +151,9 @@ export class CherryPieService {
     if (!removeFilesFromSourcePr) {
       return;
     }
+
+    this.messages.print({ title: `removeFilesFromSourcePr `, text: `${removeFilesFromSourcePr}` });
+    this.messages.print({ title: `files, sourceBranch, baseSha `, text: `${files} : ${sourceBranch} : ${baseSha}` });
 
     await this.github.removeFilesFromPR(files, sourceBranch, baseSha);
     this.messages.print({ title: `Removing sliced files from `, text: `${sourceBranch}` });

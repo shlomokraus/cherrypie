@@ -1,6 +1,6 @@
 import { jsx } from "@emotion/core";
 
-import React, { useReducer, useEffect, useContext } from "react";
+import React, { useReducer, useEffect, useContext, useRef } from "react";
 import { useStorage } from "../hooks/storage";
 import { useLogin } from "../hooks/login";
 import { ProcessStatus } from "../constants";
@@ -8,38 +8,29 @@ import { useGlobalState } from "../context/GlobalState";
 import { useAuth } from "../hooks/auth";
 import { CloseBtn } from "./CloseBtn";
 import CherryLogo from "../../assets/logo.svg";
+import { Formik, Form, Field } from "formik";
+
+const validate = values => {
+  let errors: any = {};
+  if (values.authMethod === "token" && !values.token) {
+    errors.token = "Required";
+  } else if (values.authMethod === "password") {
+    if (!values.username) {
+      errors.username = "Required";
+    }
+    if (!values.password) {
+      errors.password = "Required";
+    }
+  }
+
+  return errors as any;
+};
 
 export const Login = () => {
   const { login, status, error } = useLogin();
   const [auth] = useAuth();
-  const { authMethod, token, username, password } = auth;
   const [route, setRoute] = useGlobalState("route");
-
-  const [form, updateForm] = useReducer(
-    (state, action) => {
-      switch (action.field) {
-        case "token":
-          return { ...state, token: action.value };
-        case "username":
-          return { ...state, username: action.value };
-        case "password":
-          return { ...state, password: action.value };
-        case "authMethod":
-          return { ...state, authMethod: action.value };
-        case "save":
-          return { ...state, save: action.value };
-        default:
-          return state;
-      }
-    },
-    {
-      username: auth.username,
-      password: auth.password,
-      token: auth.token,
-      authMethod: auth.authMethod,
-      save: true
-    }
-  );
+  const initialValues = { ...auth, authMethod: "password", save: true };
   useEffect(
     () => {
       if (status === ProcessStatus.Done) {
@@ -50,19 +41,18 @@ export const Login = () => {
     [status]
   );
 
-  const onLogin = async () => {
-    let payload = { authMethod: form.authMethod, save: form.save } as any;
-
-    switch (form.authMethod) {
+  const onLogin = async values => {
+    let payload = values;
+    switch (values.authMethod) {
       case "password":
         payload = {
           ...payload,
-          username: form.username || auth.username,
-          password: form.password || auth.password
+          username: values.username || auth.username,
+          password: values.password || auth.password
         };
         break;
       case "token":
-        payload = { ...payload, token: form.token || auth.token };
+        payload = { ...payload, token: values.token || auth.token };
         break;
     }
 
@@ -72,133 +62,174 @@ export const Login = () => {
   const onNext = () => {
     setRoute("/files");
   };
-  const getSubmitEnabled = () => {
-    switch (form.authMethod) {
-      case "password":
-        return (
-          (form.username && form.password) || (auth.username && auth.password)
-        );
-
-      case "token":
-        return form.token || auth.token;
-    }
-  };
 
   return (
-    <div>
-      <div className="Box-header">
-        <h3 className="Box-title">CHERRY PIE - SETUP</h3>
-      </div>
-      <RenderStatus status={status} error={error} />
-      <div className="Box-body ">
-        <div css={{display: "flex", alignItems: "center", flexDirection: "column"}}>
-          <img css={{width:"250px"}} src={CherryLogo} />
-        </div>
-        <h3 css={{marginBottom: "20px"}} className="f1-light text-center ">Authentication</h3>
-        <form>
-          <dl className="form-group">
-            <dt>
-              <label htmlFor="example-select">Authentication method</label>
-            </dt>
-            <dd>
-              <select
-                className="form-select   input-block"
-                id="example-select"
-                onChange={e => {
-                  e.target.value &&
-                    updateForm({ field: "authMethod", value: e.target.value });
-                }}
-                value={form.authMethod}
-              >
-                <option value="password">Password</option>
-                <option value="token">Personal Access Token</option>
-              </select>
-            </dd>
-          </dl>
-
-          {form.authMethod === "password" ? (
+    <div className="cherry-login-page">
+      <Formik
+        validateOnChange={false}
+        validate={validate}
+        initialValues={initialValues}
+        onSubmit={onLogin}
+        enableReinitialize={true}
+      >
+        {props => {
+          const {
+            values,
+            touched,
+            errors,
+            dirty,
+            isSubmitting,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            handleReset
+          } = props;
+          const { authMethod, username, password, token, save } = values;
+          return (
             <>
-              <dl className="form-group">
-                <dt>
-                  <label htmlFor="example-text">Login</label>
-                </dt>
-                <dd>
-                  <input
-                    className="form-control  input-block"
-                    type="text"
-                    value={form.username}
-                    defaultValue={username}
-                    onChange={e =>
-                      updateForm({ field: "username", value: e.target.value })
-                    }
-                  />
-                </dd>
-              </dl>
-              <dl className="form-group">
-                <dt>
-                  <label htmlFor="example-text">Password</label>
-                </dt>
-                <dd>
-                  <input
-                    className="form-control  input-block"
-                    type="password"
-                    value={form.password}
-                    defaultValue={password}
-                    onChange={e =>
-                      updateForm({ field: "password", value: e.target.value })
-                    }
-                  />
-                </dd>
-              </dl>
-            </>
-          ) : (
-            ""
-          )}
+              <div className="Box-header">
+                <h3 className="Box-title">CHERRY PIE - SETUP</h3>
+              </div>
+              <RenderStatus status={status} error={error} />
+              <Form>
+                <div className="Box-body ">
+                  <AuthenticationHeader />
 
-          {form.authMethod === "token" ? (
-            <>
-              <dl className="form-group">
-                <dt>
-                  <label htmlFor="example-text">Token</label>
-                </dt>
-                <dd>
-                  <input
-                    className="form-control  input-block"
-                    type="text"
-                    value={form.token}
-                    defaultValue={token}
-                    onChange={e =>
-                      updateForm({ field: "token", value: e.target.value })
-                    }
+                  <dl className="form-group">
+                    <dt>
+                      <label htmlFor="example-select">
+                        Authentication method
+                      </label>
+                    </dt>
+                    <dd>
+                      <select
+                        className="form-select   input-block"
+                        id="authMethod"
+                        onChange={handleChange}
+                        value={authMethod}
+                      >
+                        <option value="password">Password</option>
+                        <option value="token">Personal Access Token</option>
+                      </select>
+                    </dd>
+                  </dl>
+
+                  {authMethod === "password" && <PasswordForm {...props} />}
+
+                  {authMethod === "token" && <TokenForm {...props} />}
+
+                  <div className="form-checkbox">
+                    <label>
+                      <input
+                        type="checkbox"
+                        checked={save}
+                        onChange={handleChange}
+                      />
+                      <em className="highlight">Save credentials</em>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="Box-footer text-right">
+                  <CloseBtn label={"Cancel"} />
+                  <ActionButton
+                    status={status}
+                    onLogin={handleChange}
+                    onNext={onNext}
                   />
-                </dd>
-              </dl>
+                </div>
+              </Form>
             </>
-          ) : (
-            ""
-          )}
-          <div className="form-checkbox">
-            <label>
-              <input type="checkbox" checked={form.save} onChange={e=>{updateForm({field: "save", value: e.target.checked})}} />
-              <em className="highlight">Save credentials</em>
-            </label>
-          </div>
-        </form>
-      </div>
-      <div className="Box-footer text-right">
-        <CloseBtn label={"Cancel"} />
-        <ActionButton
-          status={status}
-          disabled={!getSubmitEnabled()}
-          onLogin={onLogin}
-          onNext={onNext}
-        />
-      </div>
+          );
+        }}
+      </Formik>
     </div>
   );
 };
 
-const ActionButton = ({ status, onLogin, onNext, disabled }) => {
+const PasswordForm = ({ errors, handleChange, values }) => (
+  <>
+    <dl className={"form-group" + (errors.username ? " errored" : "")}>
+      <dt>
+        <label htmlFor="example-text">Login</label>
+      </dt>
+      <dd>
+        <input
+          aria-describedby="form-error-text"
+          name="username"
+          value={values.username}
+          onChange={handleChange}
+          className="form-control"
+          type="text"
+        />
+      </dd>
+      <dd className="error" id="form-error-text">
+        {errors.username}
+      </dd>
+    </dl>
+    <dl className={"form-group" + (errors.password ? " errored" : "")}>
+      <dt>
+        <label htmlFor="example-text">Password</label>
+      </dt>
+      <dd>
+        <input
+          aria-describedby="form-error-text"
+          name="password"
+          value={values.password}
+          onChange={handleChange}
+          className="form-control"
+          type="password"
+        />
+      </dd>
+      <dd className="error" id="form-error-text">
+        {errors.password}
+      </dd>
+    </dl>
+  </>
+);
+
+const TokenForm = ({ errors, values, handleChange }) => (
+  <>
+    <dl className={"form-group" + (errors.token ? " errored" : "")}>
+      <dt>
+        <label htmlFor="example-text">Token</label>
+      </dt>
+      <dd>
+        <input
+          aria-describedby="form-error-text"
+          name="token"
+          value={values.token}
+          onChange={handleChange}
+          className="form-control"
+          type="text"
+        />
+      </dd>
+      <dd className="error" id="form-error-text">
+        {errors.password}
+      </dd>
+     
+    </dl>
+  </>
+);
+
+const AuthenticationHeader = () => (
+  <>
+    <div
+      css={{
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column"
+      }}
+    >
+      <img css={{ width: "250px" }} src={CherryLogo} />
+    </div>
+    <h3 css={{ marginBottom: "20px" }} className="f1-light text-center ">
+      Authentication
+    </h3>
+  </>
+);
+
+const ActionButton = ({ status, onNext, disabled }) => {
   if (status === ProcessStatus.Done) {
     return (
       <button
@@ -214,8 +245,8 @@ const ActionButton = ({ status, onLogin, onNext, disabled }) => {
     return (
       <button
         disabled={disabled}
-        onClick={onLogin}
-        type="button"
+        type="submit"
+        name="submit"
         className="btn btn-primary"
         autoFocus
       >

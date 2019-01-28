@@ -33,6 +33,22 @@ Since your commit history is unreadable, you can't use `git cherry-pick` and wis
 
 Now you can.
 
+
+<h1 align="center"><sub>INSTALL & USAGE</sub></h1>
+
+<div align="center">
+  <h1>
+    <img width="650" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow.gif?sanitize=true" />
+    <br />
+  </h1>
+</div>
+
+1. Install the extension from [Chrome store](https://chrome.google.com/webstore/detail/cherry-pie/fiaignmlhapejpdfbephokpkjnmnaapo). 
+2. You will see a `Slice` button appears in every pull request files tab. 
+3. After selecting files you will notice a purple button appears at the toolbar, clicking it will open Cherry Pie interface as a modal. 
+4. You will need to add your credentials, either password or token.
+5. Review changes, enter pull request title and click Slice!
+
 <h1 align="center"><sub>BACKGROUND</sub></h1>
 
 _Cherry picking_ is a perfect git command which, in a perfect world, allows a perfect programmer to carefully pick her commits and stage them into a new branch, where they can be pulled into master in perfectly organized pieces.
@@ -58,6 +74,29 @@ This extension rose from endless hours of reviewing pull requests where the thou
 ### What's with the name?
 
 You use `cherry-pick` for commits, but when commit history is squashed, it turns into a cherry pie. So - if you `pick` a cherry, you need to `slice` a cherry pie.
+
+<h1 align="center"><sub>DEVELOPMENT & CONTRIBUTION</sub></h1>
+
+Feel free to request and add features through pull requests. If you got this far you know the rules. 
+
+### Running locally
+#### Build
+
+```
+yarn run build
+```
+Will compile and build a local version inside `dist` folder. Install the extension by going to chrome extension page and clicking `Load Unpacked` then directing to this folder.
+
+```
+yarn run watch
+```
+Will build the package and also reload it whenever you make a change.  
+#### Develop
+```
+yarn run storybook
+```
+Storybook is setup for easier development of the views. 
+
 
 <p align="center"><br /><i>If you can't pick cherries, slice a cherry pie</i><br /><br /><br /></p>
 
