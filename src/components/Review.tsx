@@ -13,7 +13,6 @@ export const Review = () => {
   const [route, setRoute] = useGlobalState("route");
   const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
   const [target, setTarget] = useState();
-  const [removeFilesFromSourcePr, setRemoveFiles] = useGlobalState("removeFilesFromSourcePr");
   const { pr } = useCurrentPr();
   if (!pr) {
     return <div>Pull request not loaded</div>;
@@ -39,7 +38,8 @@ export const Review = () => {
 
   const initialValues =  sliceInfo ? sliceInfo : {
     target,
-    body: `supporting: #${pr.number}`
+    body: `supporting: #${pr.number}`,
+    removeFilesFromSourcePr: false
   };
 
   return (
@@ -65,8 +65,9 @@ export const Review = () => {
             handleSubmit,
             handleReset
           } = props;
-          const { target, title, body } = values;
+          const { target, title, body, removeFilesFromSourcePr } = values;
 
+          console.log("$$$$$$$$$$$$$$ ", values);
           return (
             <>
               <div className="Box-header">
@@ -106,8 +107,10 @@ export const Review = () => {
                         <label>
                           <input
                             type="checkbox"
+                            name="removeFilesFromSourcePr"
+                            value={removeFilesFromSourcePr} 
                             checked={removeFilesFromSourcePr}
-                            onChange={e => setRemoveFiles(e.target.checked)}
+                            onChange={handleChange}
                           />
                           Remove sliced files from source pull request
                         </label>

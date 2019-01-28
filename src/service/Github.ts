@@ -236,17 +236,12 @@ export class GithubService {
     originBranch?: string
   ) {
 
-    console.log("asdf");
-
     originBranch = originBranch ? originBranch : "master";
-    console.log(`originBranch = ${originBranch}`)
+    // originBranch = "feat/remove_sliced_files";
 
     const paths = files.filter(file => !file.content).map(file => file.path);
-    console.log(`paths = ${paths}`)
     let blobs = await this.getFilesFromTree(paths, originBranch);
-    console.log(`blobs = ${blobs}`)
     blobs = blobs.map(({ path, mode, type, sha }) => ({ path, mode, type, sha }));
-    console.log(`blobs = ${blobs}`)
     for (let i = 0; i < paths.length; i++) {
       try {
         const path = paths[i];

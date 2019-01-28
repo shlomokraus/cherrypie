@@ -26,8 +26,7 @@ const { GlobalStateProvider, useGlobalState } = createGlobalState({
     route: "/login",
     currentPr: PullsGetResponse,
     currentPrError: undefined as any,
-    sliceInfo: undefined as any,
-    removeFilesFromSourcePr: false
+    sliceInfo: undefined as any
 });
 export {GlobalStateProvider, useGlobalState};
 

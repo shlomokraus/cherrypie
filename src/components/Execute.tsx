@@ -18,8 +18,7 @@ export const Execute = props => {
   const [route, setRoute] = useGlobalState("route");
   const { pr } = useCurrentPr();
   const [cantRun, setCantRun] = useState(undefined);
-  const [removeFilesFromSourcePr] = useGlobalState("removeFilesFromSourcePr");
-  
+
   useEffect(
     () => {
       if (!pr) {
@@ -37,7 +36,7 @@ export const Execute = props => {
         message: sliceInfo.title,
         prTitle: sliceInfo.title,
         prBody: sliceInfo.body,
-        removeFilesFromSourcePr
+        removeFilesFromSourcePr: sliceInfo.removeFilesFromSourcePr
       });
     },
     [pr, sliceInfo]
