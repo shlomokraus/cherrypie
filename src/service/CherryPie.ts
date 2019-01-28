@@ -64,8 +64,10 @@ export class CherryPieService {
     );
 
     const files = paths.map(path => ({ path }));
-    // Remove sliced files from current pr
-    this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
+    if (removeFilesFromSourcePr) {
+      // Remove sliced files from current pr
+      this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
+    }
 
     this.messages.print({title: `Verifying branch`, text: `creating ${targetBranch} based on ${baseBranch}`});
     await this.verifyTarget(targetBranch, baseSha);
@@ -148,10 +150,6 @@ export class CherryPieService {
   }
 
   private async removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch) {
-    if (!removeFilesFromSourcePr) {
-      return;
-    }
-
     this.messages.print({ title: `removeFilesFromSourcePr `, text: `${removeFilesFromSourcePr}` });
     this.messages.print({ title: `files, sourceBranch, baseSha `, text: `${files} : ${sourceBranch} : ${baseSha}` });
 

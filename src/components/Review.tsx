@@ -67,7 +67,6 @@ export const Review = () => {
           } = props;
           const { target, title, body, removeFilesFromSourcePr } = values;
 
-          console.log("$$$$$$$$$$$$$$ ", values);
           return (
             <>
               <div className="Box-header">

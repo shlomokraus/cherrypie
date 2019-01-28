@@ -18,7 +18,6 @@ export const Execute = props => {
   const [route, setRoute] = useGlobalState("route");
   const { pr } = useCurrentPr();
   const [cantRun, setCantRun] = useState(undefined);
-
   useEffect(
     () => {
       if (!pr) {
