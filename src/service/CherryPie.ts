@@ -63,17 +63,12 @@ export class CherryPieService {
       baseBranch
     );
 
-    const files = paths.map(path => ({ path }));
-    if (removeFilesFromSourcePr) {
-      // Remove sliced files from current pr
-      this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
-    }
-
     this.messages.print({title: `Verifying branch`, text: `creating ${targetBranch} based on ${baseBranch}`});
     await this.verifyTarget(targetBranch, baseSha);
-
+    
     // Prepare the blobs
     this.messages.print({title: `Preparing tree`, text: `with ${paths.length} updates from ${sourceBranch} `});
+    const files = paths.map(path => ({ path }));
     const blobs = await this.github.prepareTree(files, sourceBranch);
 
     // Create the tree from all the blobs
@@ -107,6 +102,11 @@ export class CherryPieService {
       {title: `Finished pushing changes`, text}
     );
 
+    if (removeFilesFromSourcePr) {
+      // Remove sliced files from current pr
+      await this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
+      this.messages.print({ title: `Removed sliced files from current pr` });
+    }
 
     return pushed;
   }
