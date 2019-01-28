@@ -97,6 +97,19 @@ yarn run storybook
 ```
 Storybook is setup for easier development of the views. 
 
+### Testing
+
+This extension uses integration and e2e tests. 
+
+##### E2E
+
+Tests are ran using puppeteer. They load the extension in chroium, checks that it is loaded and injected correctly and tests some basic UX paths. The tests are located in `test/puppeteer`.
+
+##### Integration 
+
+Those tests run against the repo `cherrypie-test`. Configuration is managed with `node-config` and files located in the `config` directory. You should learn how `node-config` works, but essentialy, we have default config which should be override. The file `default.json` contains the non sensitive data needed for tests. 
+
+The sensitive data which is `github.username` and `github.password` must never be commited to the repo. You can either set them using environment variables when running the tests (that's how it is done on circleci), or you can add a `config/local-test.json` file which is merged to default.json when running the tests. This file is ignored by git and used only for local development. 
 
 <p align="center"><br /><i>If you can't pick cherries, slice a cherry pie</i><br /><br /><br /></p>
 
