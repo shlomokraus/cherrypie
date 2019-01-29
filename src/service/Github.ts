@@ -232,8 +232,7 @@ export class GithubService {
 
   async removeFilesFromPR(
     files: { path: string; content?: string; }[],
-    sourceBranch, baseSha,
-    originBranch?: string
+    sourceBranch, originBranch?: string
   ) {
 
     originBranch = originBranch || "master";
@@ -241,14 +240,9 @@ export class GithubService {
     const paths = files.filter(file => !file.content).map(file => file.path);
     let blobs = await this.getFilesFromTree(paths, originBranch);
     blobs = blobs.map(({ path, mode, type, sha }) => ({ path, mode, type, sha }));
-    for (let i = 0; i < paths.length; i++) {
-      const path = paths[i];
-      const fileFromMaster = await this.getFile(path, originBranch);
-      blobs.push({ path, mode: "100644", type: "blob", sha: fileFromMaster.sha })
-    }
-    
-    const tree = await this.createTree(sourceBranch, blobs);
-    const commit = await this.prepareCommit("Removing sliced files from source branch", tree.sha, baseSha);
+    const sourceTree = await this.getTree(sourceBranch);
+    const originTree = await this.getTree(originBranch);
+    const commit = await this.prepareCommit("Removing sliced files from source branch", sourceTree.sha, originTree.sha);
     await this.pushToBranch(commit.sha, sourceBranch);
   }
 
