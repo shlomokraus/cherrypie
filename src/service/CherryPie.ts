@@ -104,7 +104,7 @@ export class CherryPieService {
 
     if (removeFilesFromSourcePr) {
       // Remove sliced files from current pr
-      await this.removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch);
+      await this.removeFilesFromPr(files, sourceBranch);
       this.messages.print({ title: `Removed sliced files from current pr` });
     }
 
@@ -149,11 +149,8 @@ export class CherryPieService {
     return `Adding ${fileCount} files that were sliced from ${sourceBranch}`;
   }
 
-  private async removeFilesFromPr(files, baseSha, removeFilesFromSourcePr, sourceBranch) {
-    this.messages.print({ title: `removeFilesFromSourcePr `, text: `${removeFilesFromSourcePr}` });
-    this.messages.print({ title: `files, sourceBranch, baseSha `, text: `${files} : ${sourceBranch} : ${baseSha}` });
-
-    await this.github.removeFilesFromPR(files, sourceBranch, baseSha);
-    this.messages.print({ title: `Removing sliced files from `, text: `${sourceBranch}` });
+  private async removeFilesFromPr(files, sourceBranch) {
+    await this.github.removeFilesFromPR(files, sourceBranch);
+    this.messages.print({ title: `Removed sliced files from `, text: `${sourceBranch}` });
   }
 }
