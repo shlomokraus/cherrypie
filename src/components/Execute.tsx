@@ -13,7 +13,7 @@ export const Execute = props => {
   const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
 
   const { slices, setSlices } = useSlices();
-  const { status, error, slice, removeSlicedFiles } = useSlice();
+  const { status, error, slice } = useSlice();
   const [messages] = useGlobalStore("messages");
   const [route, setRoute] = useGlobalState("route");
   const { pr } = useCurrentPr();
@@ -116,11 +116,15 @@ export const Execute = props => {
           type="submit"
           className="btn btn-primary"
           disabled={status === ProcessStatus.Working}
-          onClick={() => removeSlicedFiles({
+          onClick={() => slice({
             paths: slices,
             sourceBranch: pr.base.ref,
             targetBranch: pr.head.ref,
-            baseBranch: pr.head.ref
+            baseBranch: pr.head.ref,
+            createPr: false,
+            message: "Removed sliced files from source pr",
+            prTitle: undefined,
+            prBody: undefined
           })}
         >
           Remove sliced files
