@@ -45,6 +45,7 @@ export class GithubService {
     }
     // Verify we have access
     const result = await this.verifyAccess();
+
     if (!result) {
       throw Error(VERIFY_FAILED_EX);
     }
@@ -228,22 +229,6 @@ export class GithubService {
       this.payload({ path, ref })
     );
     return result.data;
-  }
-
-  async removeFilesFromPR(
-    files: { path: string; content?: string; }[],
-    sourceBranch, originBranch?: string
-  ) {
-
-    originBranch = originBranch || "master";
-
-    const paths = files.filter(file => !file.content).map(file => file.path);
-    let blobs = await this.getFilesFromTree(paths, originBranch);
-    blobs = blobs.map(({ path, mode, type, sha }) => ({ path, mode, type, sha }));
-    const sourceTree = await this.getTree(sourceBranch);
-    const originTree = await this.getTree(originBranch);
-    const commit = await this.prepareCommit("Removing sliced files from source branch", sourceTree.sha, originTree.sha);
-    await this.pushToBranch(commit.sha, sourceBranch);
   }
 
   private getRefFromBranch(name) {

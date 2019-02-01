@@ -153,12 +153,5 @@ describe("Github Service - Integration Tests", () => {
             // TODO: verify commits and delete branch
         },10000)
 
-        it.skip("removeFilesFromPR()", async () => {
-            const configs = config.get("test.slice");
-            //TODO use cherrypie-test lib to create and delete a file from pr
-            await github.removeFilesFromPR([{ path: configs.get("paths")[0] }], 
-                configs.get("sourceBranch")[0], configs.get("baseBranch"));
-        }, 10000)
-
     })
 })

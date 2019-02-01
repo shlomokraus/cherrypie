@@ -9,7 +9,7 @@ import { Formik, Form, Field } from "formik";
 
 export const Review = () => {
   const cherry = useContext(CherryContext);
-  const { slices, removeSlice } = useSlices();
+  const { slices } = useSlices();
   const [route, setRoute] = useGlobalState("route");
   const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
   const [target, setTarget] = useState();
@@ -38,8 +38,7 @@ export const Review = () => {
 
   const initialValues =  sliceInfo ? sliceInfo : {
     target,
-    body: `supporting: #${pr.number}`,
-    removeFilesFromSourcePr: false
+    body: `supporting: #${pr.number}`
   };
 
   return (
@@ -65,7 +64,7 @@ export const Review = () => {
             handleSubmit,
             handleReset
           } = props;
-          const { target, title, body, removeFilesFromSourcePr } = values;
+          const { target, title, body } = values;
 
           return (
             <>
@@ -101,20 +100,7 @@ export const Review = () => {
                       <label htmlFor="example-textarea">Body</label>
                     </dt>
                     <dd>
-                    <textarea name="body" value={body} onChange={handleChange} className="form-control"  />
-                      <div className="form-checkbox">
-                        <label>
-                          <input
-                            type="checkbox"
-                            name="removeFilesFromSourcePr"
-                            value={removeFilesFromSourcePr} 
-                            checked={removeFilesFromSourcePr}
-                            onChange={handleChange}
-                          />
-                          Remove sliced files from source pull request
-                        </label>
-                      </div>
-
+                      <textarea name="body" value={body} onChange={handleChange} className="form-control"  />
                     </dd>
                   </dl>
                   <dl className={"form-group" + (errors.target ? " errored" : "")}>

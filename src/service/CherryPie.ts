@@ -45,14 +45,12 @@ export class CherryPieService {
     message,
     createPr,
     prTitle,
-    prBody,
-    removeFilesFromSourcePr
+    prBody
   }: {
     paths: string[];
     sourceBranch: string;
     targetBranch: string;
     baseBranch: string;
-    removeFilesFromSourcePr: boolean;
     message?: string;
     createPr?: boolean;
     prTitle?: string;
@@ -102,11 +100,11 @@ export class CherryPieService {
       {title: `Finished pushing changes`, text}
     );
 
-    if (removeFilesFromSourcePr) {
-      // Remove sliced files from current pr
-      await this.removeFilesFromPr(files, sourceBranch);
-      this.messages.print({ title: `Removed sliced files from current pr` });
-    }
+    // if (removeFilesFromSourcePr) {
+    //   // Remove sliced files from current pr
+    //   await this.removeFilesFromPr(files, sourceBranch);
+    //   this.messages.print({ title: `Removed sliced files from current pr` });
+    // }
 
     return pushed;
   }
@@ -149,8 +147,25 @@ export class CherryPieService {
     return `Adding ${fileCount} files that were sliced from ${sourceBranch}`;
   }
 
-  private async removeFilesFromPr(files, sourceBranch) {
-    await this.github.removeFilesFromPR(files, sourceBranch);
-    this.messages.print({ title: `Removed sliced files from `, text: `${sourceBranch}` });
-  }
+  async removeSlicedFiles({
+    paths,
+    sourceBranch,
+    targetBranch,
+    baseBranch,
+    message,
+    createPr,
+    prTitle,
+    prBody
+  }: {
+      paths: string[];
+      sourceBranch: string;
+      targetBranch: string;
+      baseBranch: string;
+      message?: string;
+      createPr?: boolean;
+      prTitle?: string;
+      prBody?: string;
+    }){
+      //TODO
+    }
 }

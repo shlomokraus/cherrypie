@@ -13,7 +13,7 @@ export const Execute = props => {
   const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
 
   const { slices, setSlices } = useSlices();
-  const { status, error, slice } = useSlice();
+  const { status, error, slice, removeSlicedFiles } = useSlice();
   const [messages] = useGlobalStore("messages");
   const [route, setRoute] = useGlobalState("route");
   const { pr } = useCurrentPr();
@@ -34,8 +34,7 @@ export const Execute = props => {
         createPr: true,
         message: sliceInfo.title,
         prTitle: sliceInfo.title,
-        prBody: sliceInfo.body,
-        removeFilesFromSourcePr: sliceInfo.removeFilesFromSourcePr
+        prBody: sliceInfo.body
       });
     },
     [pr, sliceInfo]
@@ -51,7 +50,7 @@ export const Execute = props => {
         <h3 className="Box-title">EXECUTING</h3>
       </div>
       <RenderStatus status={status} error={error} />
-      
+
       {cantRun && <ErrorMessage error={cantRun}/>}
       <div style={{ minHeight: "300px" }}>
         {messages.map((message, index) => {
@@ -77,7 +76,7 @@ export const Execute = props => {
                 isLast && status === ProcessStatus.Working
                   ? "Box-row--unread"
                   : ""
-              }`}
+                }`}
             >
               <div className="mr-1 Box-btn-octicon btn-octicon float-left">
                 {Icon}
@@ -107,11 +106,29 @@ export const Execute = props => {
           }}
         >
           <CloseBtn
-            resset={status === ProcessStatus.Done}
+            reset={status === ProcessStatus.Done}
             disabled={status === ProcessStatus.Working}
-            label={"Close"}
+            label={"Finish"}
           />
         </span>
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={status === ProcessStatus.Working}
+          onClick={() => removeSlicedFiles({
+            paths: slices,
+            sourceBranch: pr.head.ref,
+            targetBranch: sliceInfo.target,
+            baseBranch: pr.base.ref,
+            createPr: true,
+            message: sliceInfo.title,
+            prTitle: sliceInfo.title,
+            prBody: sliceInfo.body
+          })}
+        >
+          Remove sliced files
+        </button>
       </div>
     </div>
   );

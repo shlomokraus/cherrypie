@@ -8,7 +8,7 @@ export const useSlice =  () => {
   const [status, setStatus] = useState(ProcessStatus.Idle);
   const [error, setError] = useState();
 
-  const slice = async ({paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle, prBody, message, removeFilesFromSourcePr}) =>{
+  const slice = async ({paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle, prBody, message}) =>{
     try {
         dispatch({type: "clear-messages"})
         setStatus(ProcessStatus.Working);
@@ -20,8 +20,7 @@ export const useSlice =  () => {
             message,
             createPr, 
             prBody,
-            prTitle,
-            removeFilesFromSourcePr
+            prTitle
           });
         setStatus(ProcessStatus.Done);
       } catch(ex){
@@ -31,6 +30,28 @@ export const useSlice =  () => {
       }
   }
 
-  return { slice, status, error }
+  const removeSlicedFiles = async ({ paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle, prBody, message }) => {
+    try {
+      dispatch({ type: "clear-messages" })
+      setStatus(ProcessStatus.Working);
+      await cherry.removeSlicedFiles({
+        paths,
+        sourceBranch,
+        targetBranch,
+        baseBranch,
+        message,
+        createPr,
+        prBody,
+        prTitle
+      });
+      setStatus(ProcessStatus.Done);
+    } catch (ex) {
+      console.log("err", ex);
+      setError(ex.message);
+      setStatus(ProcessStatus.Failed);
+    }
+  }
+
+  return { slice, removeSlicedFiles, status, error }
  
 }
