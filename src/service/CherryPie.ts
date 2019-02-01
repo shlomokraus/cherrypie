@@ -2,7 +2,7 @@ import { GithubService } from "./Github";
 import { MessagesService } from "./Messages";
 
 export class CherryPieService {
-  private isInit = false;
+  public isInit = false;
   constructor(
     private readonly github: GithubService,
     private readonly messages: MessagesService
@@ -44,8 +44,10 @@ export class CherryPieService {
     baseBranch,
     message,
     createPr,
-    prTitle
+    prTitle,
+    prBody
   }: {
+
     paths: string[];
     sourceBranch: string;
     targetBranch: string;
@@ -53,6 +55,7 @@ export class CherryPieService {
     message?: string;
     createPr?: boolean;
     prTitle?: string;
+    prBody?: string;
   }) {
     const baseSha = await this.getBaseSha(
       sourceBranch,
@@ -86,7 +89,7 @@ export class CherryPieService {
     let pr;
     if(createPr && prTitle){
         this.messages.print({title: `Creating pull request`, text: `from ${targetBranch} into ${baseBranch}`});
-        pr = await this.github.createPr({title: prTitle, headBranch: targetBranch, baseBranch });
+        pr = await this.github.createPr({title: prTitle, body: prBody, headBranch: targetBranch, baseBranch });
 
     } 
     let text =  `into ${pushed.ref}`;
