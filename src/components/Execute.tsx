@@ -50,7 +50,7 @@ export const Execute = props => {
         <h3 className="Box-title">EXECUTING</h3>
       </div>
       <RenderStatus status={status} error={error} />
-
+      
       {cantRun && <ErrorMessage error={cantRun}/>}
       <div style={{ minHeight: "300px" }}>
         {messages.map((message, index) => {
@@ -76,7 +76,7 @@ export const Execute = props => {
                 isLast && status === ProcessStatus.Working
                   ? "Box-row--unread"
                   : ""
-                }`}
+              }`}
             >
               <div className="mr-1 Box-btn-octicon btn-octicon float-left">
                 {Icon}
