@@ -2,7 +2,7 @@ import { GithubService } from "./Github";
 import { MessagesService } from "./Messages";
 
 export class CherryPieService {
-  public isInit = false;
+  private isInit = false;
   constructor(
     private readonly github: GithubService,
     private readonly messages: MessagesService
@@ -16,7 +16,7 @@ export class CherryPieService {
     if (parsed[5] !== "pull") {
       return undefined;
     }
-    
+  
     return { owner: parsed[3], repo: parsed[4], number: Number(parsed[6])  };
   };
 
@@ -44,8 +44,7 @@ export class CherryPieService {
     baseBranch,
     message,
     createPr,
-    prTitle,
-    prBody
+    prTitle
   }: {
     paths: string[];
     sourceBranch: string;
@@ -54,16 +53,14 @@ export class CherryPieService {
     message?: string;
     createPr?: boolean;
     prTitle?: string;
-    prBody?: string;
   }) {
     const baseSha = await this.getBaseSha(
       sourceBranch,
       baseBranch
     );
-
     this.messages.print({title: `Verifying branch`, text: `creating ${targetBranch} based on ${baseBranch}`});
     await this.verifyTarget(targetBranch, baseSha);
-    
+
     // Prepare the blobs
     this.messages.print({title: `Preparing tree`, text: `with ${paths.length} updates from ${sourceBranch} `});
     const files = paths.map(path => ({ path }));
@@ -89,7 +86,7 @@ export class CherryPieService {
     let pr;
     if(createPr && prTitle){
         this.messages.print({title: `Creating pull request`, text: `from ${targetBranch} into ${baseBranch}`});
-        pr = await this.github.createPr({title: prTitle, body: prBody, headBranch: targetBranch, baseBranch });
+        pr = await this.github.createPr({title: prTitle, headBranch: targetBranch, baseBranch });
 
     } 
     let text =  `into ${pushed.ref}`;
@@ -99,6 +96,7 @@ export class CherryPieService {
     this.messages.print(
       {title: `Finished pushing changes`, text}
     );
+
 
     return pushed;
   }
@@ -140,5 +138,4 @@ export class CherryPieService {
   private prepareCommitMessage(sourceBranch, fileCount) {
     return `Adding ${fileCount} files that were sliced from ${sourceBranch}`;
   }
-
 }

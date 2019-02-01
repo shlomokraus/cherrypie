@@ -5,144 +5,128 @@ import { CherryContext } from "../context/Cherry";
 import shortid from "shortid";
 import { useCurrentPr } from "../hooks/currentPr";
 import { CloseBtn } from "./CloseBtn";
-import { Formik, Form, Field } from "formik";
 
 export const Review = () => {
   const cherry = useContext(CherryContext);
   const { slices, removeSlice } = useSlices();
   const [route, setRoute] = useGlobalState("route");
-  const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
-  const [target, setTarget] = useState();
-  const { pr } = useCurrentPr();
+  const [target, setTarget] = useGlobalState("targetBranch");
+  const [commitMessage, setCommitMessage] = useGlobalState("commitMessage");
+  const [prTitle, setPrTitle] = useGlobalState("pullRequestTitle");
+
+  const {pr} = useCurrentPr();
   if (!pr) {
-    return <div>Pull request not loaded</div>;
+   return <div>Pull request no loaded</div>;
   }
 
   const source = pr.head.ref;
 
-  const validate = values => {
-    let errors: any = {};
-    if (!values.title) {
-      errors.title = "Required";
-    }
-    if (!values.target) {
-      errors.target = "Required";
-    }
+  useEffect(
+    () => {
+      if (!target) {
+        setTarget(source + "-" + shortid.generate());
+      }
+    },
+    [source]
+  );
 
-    return errors as any;
-  };
-
-  useEffect(() => {
-    setTarget(source + "-" + shortid.generate());
-  }, [])
-
-  const initialValues = sliceInfo ? sliceInfo : {
-    target,
-    body: `supporting: #${pr.number}`
-  };
+  useEffect(
+    () => {
+      if (source) {
+        setCommitMessage(
+          `Adding ${slices.length} updates from branch ${source}`
+        );
+      }
+    },
+    [source, slices]
+  );
 
   return (
-    <div className="cherry-review-page">
-      <Formik
-        enableReinitialize={true}
-        validate={validate}
-        initialValues={initialValues}
-        onSubmit={(values) => {
-          setSliceInfo(values);
-          setRoute("/execute");
-        }}
-      >
-        {props => {
-          const {
-            values,
-            touched,
-            errors,
-            dirty,
-            isSubmitting,
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            handleReset
-          } = props;
-          const { target, title, body } = values;
+    <div>
+      <div className="Box-header">
+        <h3 className="Box-title">REVIEW CHANGES</h3>
+      </div>
 
-          return (
-            <>
-              <div className="Box-header">
-                <h3 className="Box-title">REVIEW CHANGES</h3>
-              </div>
+      <div className="flash flash-full">
+        {`You are about to slice ${slices.length} updates from ${source}`}
+      </div>
 
-              <div className="flash flash-full">
-                {`You are about to slice ${
-                  slices.length
-                  } updates from ${source}`}
-              </div>
+      <div className="Box-body">
+        <div className="Subhead" />
+        <form>
+          <dl className="form-group">
+            <dt>
+              <label htmlFor="example-text">Target branch</label>
+              <p className="note" id="help-text-for-checkbox">
+                <strong>warning:</strong> if branch exists, push will{" "}
+                <strong>overwrite</strong> any other changes.
+              </p>
+            </dt>
+            <dd>
+              <input
+                className="form-control"
+                type="text"
+                value={target}
+                onChange={e => setTarget(e.target.value)}
+                id="example-text"
+              />
+            </dd>
+          </dl>
+          <dl className="form-group">
+            <dt>
+              <label htmlFor="example-text">Commit message</label>
+            </dt>
+            <dd>
+              <input
+                className="form-control"
+                type="text"
+                value={commitMessage}
+                onChange={e => setCommitMessage(e.target.value)}
+                id="example-text"
+              />
+            </dd>
+          </dl>
+          <div className="Subhead Subhead--spacious">
+            <div className="Subhead-heading">Pull Request</div>
+          </div>
+          <div className="form-checkbox">
+            <label>
+              <input
+                type="checkbox"
+                checked="checked"
+                aria-describedby="help-text-for-checkbox"
+              />
+              Open pull request after slice
+            </label>
+          </div>
+          <input
+            className="form-control input-block"
+            type="text"
+            placeholder="Pull request title"
+            value={prTitle}
+            onChange={e => setPrTitle(e.target.value)}
+            id="example-text"
+          />
+        </form>
+      </div>
 
-              <div className="Box-body">
-                <form>
-                  <div className="Subhead">
-                    <div className="Subhead-heading">Open pull request</div>
-                  </div>
-
-                  <dl className={"form-group" + (errors.title ? " errored" : "")}>
-                    <dt>
-                      <label htmlFor="example-textarea">Title</label>
-                    </dt>
-                    <dd>
-                      <input name="title" value={title} onChange={handleChange} className="form-control" type="text" />
-
-                    </dd>
-                    <dd className="error" id="form-error-text">{errors.title}</dd>
-
-                  </dl>
-                  <dl className="form-group">
-                    <dt>
-                      <label htmlFor="example-textarea">Body</label>
-                    </dt>
-                    <dd>
-                      <textarea name="body" value={body} onChange={handleChange} className="form-control" />
-
-                    </dd>
-                  </dl>
-                  <dl className={"form-group" + (errors.target ? " errored" : "")}>
-                    <dt>
-                      <label htmlFor="example-text">Target branch</label>
-                      <p className="note" id="help-text-for-checkbox">
-                        <strong>warning:</strong> if branch exists, push will{" "}
-                        <strong>overwrite</strong> any other changes.
-                      </p>
-                    </dt>
-                    <dd>
-                      <input aria-describedby="form-error-text" name="target" value={target} onChange={handleChange} className="form-control" type="text" />
-                    </dd>
-                    <dd className="error" id="form-error-text">{errors.target}</dd>
-                  </dl>
-
-                </form>
-              </div>
-
-              <div className="Box-footer text-right">
-                <CloseBtn label={"Cancel"} />
-                <button
-                  type="button"
-                  className="btn  mr-2"
-                  onClick={() => setRoute("/files")}
-                >
-                  Back
-                </button>
-                <button
-                  onClick={handleSubmit}
-                  type="submit"
-                  className="btn btn-primary"
-                  autoFocus
-                >
-                  Slice!
-                </button>
-              </div>
-            </>
-          );
-        }}
-      </Formik>
+      <div className="Box-footer text-right">
+       <CloseBtn label={"Cancel"} />
+        <button type="button" className="btn  mr-2" onClick={()=>setRoute("/files")}>
+          Back
+        </button>
+        <button
+          onClick={() => {
+            setRoute("/execute");
+          }}
+          type="button"
+          className="btn btn-primary"
+          autoFocus
+          disabled={!prTitle}
+        >
+          Slice!
+        </button>
+      </div>
     </div>
   );
 };
