@@ -30,19 +30,19 @@ export const useSlice =  () => {
       }
   }
 
-  const removeSlicedFiles = async ({ paths, sourceBranch, targetBranch, baseBranch, createPr, prTitle, prBody, message }) => {
+  const removeSlicedFiles = async ({ paths, sourceBranch, targetBranch, baseBranch }) => {
     try {
       dispatch({ type: "clear-messages" })
       setStatus(ProcessStatus.Working);
-      await cherry.removeSlicedFiles({
+      await cherry.slice({
         paths,
         sourceBranch,
         targetBranch,
         baseBranch,
-        message,
-        createPr,
-        prBody,
-        prTitle
+        message: "Removed sliced files from source pr",
+        createPr: false,
+        prBody: undefined,
+        prTitle: undefined
       });
       setStatus(ProcessStatus.Done);
     } catch (ex) {

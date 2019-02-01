@@ -118,13 +118,9 @@ export const Execute = props => {
           disabled={status === ProcessStatus.Working}
           onClick={() => removeSlicedFiles({
             paths: slices,
-            sourceBranch: pr.head.ref,
-            targetBranch: sliceInfo.target,
-            baseBranch: pr.base.ref,
-            createPr: true,
-            message: sliceInfo.title,
-            prTitle: sliceInfo.title,
-            prBody: sliceInfo.body
+            sourceBranch: pr.base.ref,
+            targetBranch: pr.head.ref,
+            baseBranch: pr.head.ref
           })}
         >
           Remove sliced files

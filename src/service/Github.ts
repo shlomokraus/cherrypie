@@ -45,7 +45,6 @@ export class GithubService {
     }
     // Verify we have access
     const result = await this.verifyAccess();
-
     if (!result) {
       throw Error(VERIFY_FAILED_EX);
     }

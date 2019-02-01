@@ -9,7 +9,7 @@ import { Formik, Form, Field } from "formik";
 
 export const Review = () => {
   const cherry = useContext(CherryContext);
-  const { slices } = useSlices();
+  const { slices, removeSlice } = useSlices();
   const [route, setRoute] = useGlobalState("route");
   const [sliceInfo, setSliceInfo] = useGlobalState("sliceInfo");
   const [target, setTarget] = useState();
@@ -32,11 +32,11 @@ export const Review = () => {
     return errors as any;
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setTarget(source + "-" + shortid.generate());
   }, [])
 
-  const initialValues =  sliceInfo ? sliceInfo : {
+  const initialValues = sliceInfo ? sliceInfo : {
     target,
     body: `supporting: #${pr.number}`
   };
@@ -44,10 +44,10 @@ export const Review = () => {
   return (
     <div className="cherry-review-page">
       <Formik
-      enableReinitialize={true}
+        enableReinitialize={true}
         validate={validate}
         initialValues={initialValues}
-        onSubmit={(values)=>{
+        onSubmit={(values) => {
           setSliceInfo(values);
           setRoute("/execute");
         }}
@@ -75,7 +75,7 @@ export const Review = () => {
               <div className="flash flash-full">
                 {`You are about to slice ${
                   slices.length
-                } updates from ${source}`}
+                  } updates from ${source}`}
               </div>
 
               <div className="Box-body">
@@ -89,7 +89,7 @@ export const Review = () => {
                       <label htmlFor="example-textarea">Title</label>
                     </dt>
                     <dd>
-                    <input name="title" value={title} onChange={handleChange} className="form-control" type="text" />
+                      <input name="title" value={title} onChange={handleChange} className="form-control" type="text" />
 
                     </dd>
                     <dd className="error" id="form-error-text">{errors.title}</dd>
@@ -100,7 +100,8 @@ export const Review = () => {
                       <label htmlFor="example-textarea">Body</label>
                     </dt>
                     <dd>
-                      <textarea name="body" value={body} onChange={handleChange} className="form-control"  />
+                      <textarea name="body" value={body} onChange={handleChange} className="form-control" />
+
                     </dd>
                   </dl>
                   <dl className={"form-group" + (errors.target ? " errored" : "")}>
@@ -112,11 +113,11 @@ export const Review = () => {
                       </p>
                     </dt>
                     <dd>
-                    <input aria-describedby="form-error-text" name="target" value={target} onChange={handleChange} className="form-control" type="text" />
+                      <input aria-describedby="form-error-text" name="target" value={target} onChange={handleChange} className="form-control" type="text" />
                     </dd>
                     <dd className="error" id="form-error-text">{errors.target}</dd>
                   </dl>
-               
+
                 </form>
               </div>
 

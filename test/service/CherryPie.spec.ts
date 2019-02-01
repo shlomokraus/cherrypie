@@ -24,8 +24,8 @@ describe("CherryPie Service - Integration Tests", () => {
     });
 
     it("slice()", async () => {
-        const { paths, sourceBranch, targetBranch, baseBranch, removeFilesFromSourcePr } = config.get("test.slice");
-        const result = await cherry.slice({paths, sourceBranch, targetBranch, baseBranch, removeFilesFromSourcePr});
+        const { paths, sourceBranch, targetBranch, baseBranch } = config.get("test.slice");
+        const result = await cherry.slice({paths, sourceBranch, targetBranch, baseBranch});
         
         const verifyTarget = await github.getBranch(targetBranch);
 
@@ -40,4 +40,16 @@ describe("CherryPie Service - Integration Tests", () => {
         await github.deleteBranch(targetBranch);
     }, 20000)
 
+    it.skip("removeSlicedFiles", async () => {
+        let { paths, sourceBranch, targetBranch, baseBranch } = config.get("test.removeSlicedFiles");
+        const result = await cherry.slice({ paths, sourceBranch, targetBranch, baseBranch });
+
+        const verifyTarget = await github.getBranch(targetBranch);
+        const verifySource = await github.getBranch(sourceBranch);
+
+        const target = await github.getFileContent(paths[0], verifyTarget.commit.sha);
+        const source = await github.getFileContent(paths[0], verifySource.commit.sha);
+
+        expect(target).toEqual(source)
+    }, 30000)
 })
