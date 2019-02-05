@@ -1486,9 +1486,16 @@
   version "10.12.18"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
 
-"@types/puppeteer@*", "@types/puppeteer@^1.11.1":
+"@types/puppeteer@*":
   version "1.11.1"
   resolved "https://registry.npmjs.org/@types/puppeteer/-/puppeteer-1.11.1.tgz#f2fe2e08917af2b4dc4b03bd2b838c05cb9d8410"
+  dependencies:
+    "@types/node" "*"
+
+"@types/puppeteer@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.12.1.tgz#f61f9e0da45e36cdbbeab3b088995a8a2cad47a4"
+  integrity sha512-6qpe7XXM93iWh8quEP8Ay516Vmfc2r+ZAxFH3Mt6fx3vzmZz+4Q+hYxc9PxeEIXJhWLAAPYAgAiM/vLHEUwGpw==
   dependencies:
     "@types/node" "*"
 
