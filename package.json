@@ -52,7 +52,7 @@
 		"jest-environment-puppeteer": "^3.8.0",
 		"jest-puppeteer": "^3.8.0",
 		"lodash": "^4.17.11",
-		"react": "16.7.0-alpha.2",
+		"react": "16.8.1",
 		"react-awesome-modal": "^2.0.5",
 		"react-dom": "16.7.0-alpha.2",
 		"react-hooks-global-state": "^0.4.1",
