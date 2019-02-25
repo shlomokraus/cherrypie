@@ -3846,9 +3846,10 @@ destroy@~1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/destroy/-/destroy-1.0.4.tgz#978857442c44749e4206613e37946205826abd80"
 
-details-dialog-element@^1.4.1:
-  version "1.4.1"
-  resolved "https://registry.npmjs.org/details-dialog-element/-/details-dialog-element-1.4.1.tgz#cad59186291705d991ac4121eb3ee2ece6de77e6"
+details-dialog-element@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/details-dialog-element/-/details-dialog-element-2.0.0.tgz#3b29af825269673966af8853d7cf62b539b92f7b"
+  integrity sha512-MNJauj8CZNaKQzQgq6SXthRoeFkr+jhChP/UaO3hvSgmt99FtqV/IGnoOCqO3OWLlw6Us0f0dJNNztWlKF/Imw==
 
 detect-indent@^4.0.0:
   version "4.0.0"
