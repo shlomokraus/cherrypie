@@ -41,7 +41,7 @@
 		"babel-plugin-emotion": "^10.0.5",
 		"config": "^3.0.1",
 		"copy-webpack-plugin": "^4.6.0",
-		"details-dialog-element": "^1.4.1",
+		"details-dialog-element": "^2.0.0",
 		"formik": "^1.4.2",
 		"git-url-parse": "^11.1.1",
 		"github-injection": "^1.0.1",
