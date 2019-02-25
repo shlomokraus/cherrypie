@@ -18,7 +18,7 @@
 		"test:watch": "jest --config ./jest.config.js --watch --runInBand --verbose --coverage=false"
 	},
 	"dependencies": {
-		"@babel/core": "^7.2.2",
+		"@babel/core": "^7.3.4",
 		"@babel/node": "^7.2.2",
 		"@babel/plugin-proposal-class-properties": "^7.2.3",
 		"@babel/plugin-proposal-decorators": "^7.2.3",
