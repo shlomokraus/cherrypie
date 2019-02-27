@@ -1472,9 +1472,10 @@
     "@svgr/plugin-svgo" "^4.0.3"
     loader-utils "^1.1.0"
 
-"@types/jest-environment-puppeteer@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/@types/jest-environment-puppeteer/-/jest-environment-puppeteer-2.2.1.tgz#ececed13f3950ea6a7f8846537d3a1f6fc598646"
+"@types/jest-environment-puppeteer@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@types/jest-environment-puppeteer/-/jest-environment-puppeteer-4.0.0.tgz#0e696618965e7472471e4f1ae25adb72bcf38433"
+  integrity sha512-On6C1NKiruviCSUaZgNW4yR0J05rLZTgOyIFMiT9F66rR8zwCQu1Wj9+c50+f5r6m207+hjxtPy1Tgrr+nkfkw==
   dependencies:
     "@types/puppeteer" "*"
 
