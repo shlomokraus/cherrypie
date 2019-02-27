@@ -1025,9 +1025,10 @@
   version "0.1.3"
   resolved "https://registry.npmjs.org/@emotion/weak-memoize/-/weak-memoize-0.1.3.tgz#b700d97385fa91affed60c71dfd51c67e9dad762"
 
-"@githubprimer/octicons-react@^8.2.0":
-  version "8.2.0"
-  resolved "https://registry.npmjs.org/@githubprimer/octicons-react/-/octicons-react-8.2.0.tgz#a95bbd4c409fbf975c94e2ece4881860001f134f"
+"@githubprimer/octicons-react@^8.5.0":
+  version "8.5.0"
+  resolved "https://registry.yarnpkg.com/@githubprimer/octicons-react/-/octicons-react-8.5.0.tgz#f3c9639b8efcd2789761822b7ac7715dd810b4c2"
+  integrity sha512-Tb9Nu4usHON3EGiyCnppNQoJmSJvhUw+iD1URpOsoc69YWv96jIcxUAU4/Tw/D6ydzOubf3H9kPdLKVqz8XOnQ==
   dependencies:
     prop-types "^15.6.1"
 
