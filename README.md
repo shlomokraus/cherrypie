@@ -1,3 +1,6 @@
+> New blog post! read about Cherry Pie on Medium: [Crafting the perfect Pull Request](https://medium.com/p/crafting-the-perfect-pull-request-699ab321727f?source=email-5fe064c14ada--writer.postDistributed&sk=69de54d5f585a889d96a8b0a886969a2) by Shlomo Kraus
+
+
 <div align="center">
   <h1>
 <img width="200" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/assets/logo.svg?sanitize=true" />
@@ -19,8 +22,6 @@ CHERRY PIE
 <br />
 
 </div>
-
-> Read about Cherry Pie on Medium: [Crafting the perfect Pull Request](https://medium.com/p/crafting-the-perfect-pull-request-699ab321727f?source=email-5fe064c14ada--writer.postDistributed&sk=69de54d5f585a889d96a8b0a886969a2) by Shlomo Kraus
 
 <h1 align="center"><sub>TL;DR</sub></h1>
 
