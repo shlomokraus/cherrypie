@@ -20,6 +20,8 @@ CHERRY PIE
 
 </div>
 
+> Read about Cherry Pie on Medium: [Crafting the perfect Pull Request](https://medium.com/p/crafting-the-perfect-pull-request-699ab321727f?source=email-5fe064c14ada--writer.postDistributed&sk=69de54d5f585a889d96a8b0a886969a2) by Shlomo Kraus
+
 <h1 align="center"><sub>TL;DR</sub></h1>
 
 This extension adds a button to Github's Pull Request page that extracts files from one branch and stage them into a new one.
