@@ -38,7 +38,7 @@
 		"@types/node": "^10.12.18",
 		"@types/puppeteer": "^1.11.1",
 		"babel-loader": "^8.0.4",
-		"babel-plugin-emotion": "^10.0.5",
+		"babel-plugin-emotion": "^10.0.9",
 		"config": "^3.0.1",
 		"copy-webpack-plugin": "^4.6.0",
 		"details-dialog-element": "^1.4.1",
