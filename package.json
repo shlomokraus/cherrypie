@@ -28,7 +28,7 @@
 		"@babel/preset-typescript": "^7.1.0",
 		"@emotion/babel-preset-css-prop": "^10.0.9",
 		"@emotion/core": "^10.0.9",
-		"@emotion/styled": "^10.0.5",
+		"@emotion/styled": "^10.0.9",
 		"@githubprimer/octicons-react": "^8.2.0",
 		"@octokit/rest": "^16.3.0",
 		"@semantic-release/github": "^5.2.8",
