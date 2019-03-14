@@ -49,7 +49,7 @@
 		"inversify": "^5.0.1",
 		"jest": "^23.6.0",
 		"jest-cli": "^23.6.0",
-		"jest-environment-puppeteer": "^3.8.0",
+		"jest-environment-puppeteer": "^4.1.0",
 		"jest-puppeteer": "^3.8.0",
 		"lodash": "^4.17.11",
 		"react": "16.7.0-alpha.2",
