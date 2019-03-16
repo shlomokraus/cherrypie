@@ -55,7 +55,7 @@
 		"react": "16.7.0-alpha.2",
 		"react-awesome-modal": "^2.0.5",
 		"react-dom": "16.7.0-alpha.2",
-		"react-hooks-global-state": "^0.4.1",
+		"react-hooks-global-state": "^0.8.0",
 		"react-hot-loader": "^4.6.3",
 		"react-router": "^4.3.1",
 		"react-router-dom": "^4.3.1",
