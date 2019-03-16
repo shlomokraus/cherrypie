@@ -58,7 +58,7 @@
 		"react-hooks-global-state": "^0.4.1",
 		"react-hot-loader": "^4.6.3",
 		"react-router": "^4.3.1",
-		"react-router-dom": "^4.3.1",
+		"react-router-dom": "4.3.1",
 		"reflect-metadata": "^0.1.12",
 		"rimraf": "^2.6.2",
 		"semantic-release": "^15.13.2",
