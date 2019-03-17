@@ -8704,9 +8704,10 @@ react-fuzzy@^0.5.2:
     fuse.js "^3.0.1"
     prop-types "^15.5.9"
 
-react-hooks-global-state@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/react-hooks-global-state/-/react-hooks-global-state-0.4.1.tgz#81815cf6239e924d1aa47fda2a07be0c1d1c372a"
+react-hooks-global-state@^0.9.0:
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/react-hooks-global-state/-/react-hooks-global-state-0.9.0.tgz#72faae48e1489241af399f91ef5402f21861af9c"
+  integrity sha512-zG77NerUAk2HbLlDahkFdKpuTZFsnkuuZ48hzPSEtLStp5ydFO5CGItFG/uqJ5X+QTPbqSCqRH/X562ghQnaGQ==
 
 react-hot-loader@^4.6.3:
   version "4.6.3"
