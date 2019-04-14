@@ -41,7 +41,7 @@ Now you can.
 
 <div align="center">
   <h1>
-    <img width="650" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow.gif?sanitize=true" />
+    <img width="650" src="https://raw.githubusercontent.com/shlomokraus/cherrypie/next/docs/cherry-workflow.gif" />
     <br />
   </h1>
 </div>
