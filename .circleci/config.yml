@@ -7,7 +7,7 @@ jobs:
   build-test:
     docker:
       # specify the version you desire here
-      - image: circleci/node:9.10.0-browsers
+      - image: circleci/node:11.7.0-browsers
 
     working_directory: ~/repo
 
@@ -63,10 +63,6 @@ jobs:
       - store_artifacts:
           path: ./test/puppeteer
           destination: live-snapshots
-
-      - persist_to_workspace:
-          root: .
-          paths: [.]
 
   build-release:
     docker:

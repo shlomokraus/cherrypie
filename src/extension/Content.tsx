@@ -17,17 +17,17 @@ function updateDom(count = 0) {
     for (let i = 0; i < files.length; ++i) {
       try{
         const file = files[i];
-        const name = file.getElementsByClassName("file-info")[0].children[1]
+        const name = file.getElementsByClassName("file-info")[0].children[2]
           .title;
         
         const actions = file
-          .getElementsByClassName("file-actions")[0]
-          .getElementsByClassName("BtnGroup")[0];
+          .getElementsByClassName("file-actions")[0].getElementsByClassName("d-flex")[0];
+
         const existing = actions.getElementsByClassName("cherry-action");
         if (existing.length === 0) {
           const elm = document.createElement("span");
           elm.className = "cherry-action";
-          actions.appendChild(elm);
+          actions.prepend(elm);
           ReactDOM.render(
             <>
               <GithubActionBtn

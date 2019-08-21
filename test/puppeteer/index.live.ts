@@ -2,7 +2,7 @@ import config from "config";
 
 const OUTPUT_DIR = "./test/puppeteer"
 
-const SELECTED_FILENAME = "file1.js";
+const SELECTED_FILENAME = "file2.js";
 const MAIN_SLICE_BTN_WRAPPER = ".cherry-pie-toolbar";
 const MAIN_SLICE_BTN = `${MAIN_SLICE_BTN_WRAPPER} button`;
 const MAIN_SLICE_BTN_COUNT_LABEL = `${MAIN_SLICE_BTN} span`;
