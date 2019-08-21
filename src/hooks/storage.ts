@@ -60,7 +60,7 @@ export const useStorage = (key, defaultValue?) => {
       });
 
       return () => {
-        console.log("Should unsubscribe here");
+        return
       };
     },
     [key]

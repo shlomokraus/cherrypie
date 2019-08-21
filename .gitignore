@@ -62,5 +62,6 @@ typings/
 config/local*json
 .DS_Store
 dist
+generated
 release.sh
 test/output/*.png
