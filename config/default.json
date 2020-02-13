@@ -14,6 +14,12 @@
 			"sourceBranch": ["test-branch"],
 			"targetBranch": ["test-branch-sliced"],
 			"baseBranch": "master"
+		},
+		"removeSlicedFiles": {
+			"paths": ["file1.js"],
+			"sourceBranch": ["master"],
+			"targetBranch": ["test-branch"],
+			"baseBranch": "test-branch"
 		}
 	}
 }

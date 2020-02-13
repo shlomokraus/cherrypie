@@ -106,11 +106,29 @@ export const Execute = props => {
           }}
         >
           <CloseBtn
-            resset={status === ProcessStatus.Done}
+            reset={status === ProcessStatus.Done}
             disabled={status === ProcessStatus.Working}
-            label={"Close"}
+            label={"Finish"}
           />
         </span>
+
+        <button
+          type="submit"
+          className="btn btn-primary"
+          disabled={status === ProcessStatus.Working}
+          onClick={() => slice({
+            paths: slices,
+            sourceBranch: pr.base.ref,
+            targetBranch: pr.head.ref,
+            baseBranch: pr.head.ref,
+            createPr: false,
+            message: "Removed sliced files from source pr",
+            prTitle: undefined,
+            prBody: undefined
+          })}
+        >
+          Remove sliced files
+        </button>
       </div>
     </div>
   );
