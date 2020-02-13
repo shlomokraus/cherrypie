@@ -2,26 +2,28 @@ import ReactDOM from "react-dom";
 import React, { useEffect, useState, useRef } from "react";
 import { App } from "../components/App";
 import { useWindowLocation } from "../hooks/windowLocation";
-import Modal from 'react-awesome-modal';
-import { useGlobalState } from '../context/GlobalState';
+import Modal from "react-awesome-modal";
+import { useGlobalState } from "../context/GlobalState";
 import { SliceBtn } from "../components/SliceBtn";
 
 const Emitter = require("tiny-emitter");
 const emitter = new Emitter();
-
 
 function updateDom(count = 0) {
   let files = document.getElementsByClassName("file-header");
   if (files && files.length !== count) {
     count = files.length;
     for (let i = 0; i < files.length; ++i) {
-      try{
+      try {
         const file = files[i];
-        const name = file.getElementsByClassName("file-info")[0].children[2]
+        let name = file.getElementsByClassName("file-info")[0].children[3]
           .title;
-        
+        if (!name) {
+          name = file.getElementsByClassName("file-info")[0].children[2].title;
+        }
         const actions = file
-          .getElementsByClassName("file-actions")[0].getElementsByClassName("d-flex")[0];
+          .getElementsByClassName("file-actions")[0]
+          .getElementsByClassName("d-flex")[0];
 
         const existing = actions.getElementsByClassName("cherry-action");
         if (existing.length === 0) {
@@ -33,6 +35,7 @@ function updateDom(count = 0) {
               <GithubActionBtn
                 title="Slice"
                 action={() => {
+                  console.log(name);
                   emitter.emit("file-slice", name);
                 }}
               />
@@ -40,10 +43,9 @@ function updateDom(count = 0) {
             elm
           );
         }
-      } catch(ex){
-        console.log("Unable to add a button for element", i, ex.message)
+      } catch (ex) {
+        console.log("Unable to add a button for element", i, ex.message);
       }
-      
     }
   }
 
@@ -66,62 +68,55 @@ const GithubActionBtn = ({ title, action }) => {
 };
 
 const useDomUpdated = (): MutationEvent => {
-	const [nodes, setNodes] = useState(undefined);
-  
-	useEffect(() => {
-	  document.addEventListener(
-		"DOMNodeInserted",
-		val => {
-		  setNodes(val);
-		},
-		false
-	  );
-	}, []);
-  
-	return nodes;
-  };
+  const [nodes, setNodes] = useState(undefined);
+
+  useEffect(() => {
+    document.addEventListener(
+      "DOMNodeInserted",
+      val => {
+        setNodes(val);
+      },
+      false
+    );
+  }, []);
+
+  return nodes;
+};
 
 const useInject = () => {
   const ref = useRef();
   const nodes = useDomUpdated();
 
   // Inject the slice button
-  useEffect(
-    () => {
-      ref.current = updateDom(ref.current);
-    },
-    [nodes]
-  );
-
+  useEffect(() => {
+    ref.current = updateDom(ref.current);
+  }, [nodes]);
 };
 
-const useInjectMainSliceBtn = ({emitter}) => {
+const useInjectMainSliceBtn = ({ emitter }) => {
   const location = useWindowLocation();
   const [modalVisible, setModalVisible] = useGlobalState("modalVisible");
 
-  useEffect(
-    () => {
+  useEffect(() => {
     const toolbar = document.querySelector(".diffbar .pr-review-tools");
-      if (!toolbar) {
-        return
-      }
+    if (!toolbar) {
+      return;
+    }
 
-      const existing = document.querySelector(".cherry-pie-toolbar");
-      if (existing) {
-        return
-      }
-      const app = document.createElement("div");
-      app.className = "diffbar-item cherry-pie-toolbar";
-      toolbar.insertBefore(app, toolbar.firstChild);
-      ReactDOM.render(<SliceBtn emitter={emitter} />, app);
-    },
-    [location]
-  );
+    const existing = document.querySelector(".cherry-pie-toolbar");
+    if (existing) {
+      return;
+    }
+    const app = document.createElement("div");
+    app.className = "diffbar-item cherry-pie-toolbar";
+    toolbar.insertBefore(app, toolbar.firstChild);
+    ReactDOM.render(<SliceBtn emitter={emitter} />, app);
+  }, [location]);
 };
 
 const ContentInject = () => {
   useInject();
-  useInjectMainSliceBtn({emitter});
+  useInjectMainSliceBtn({ emitter });
   const config = window.cherrypie; // Enable a way to inject config
   return <App config={config} emitter={emitter} />;
 };
