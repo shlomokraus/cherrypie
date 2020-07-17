@@ -51,7 +51,7 @@
 		"jest-cli": "^23.6.0",
 		"jest-environment-puppeteer": "^3.8.0",
 		"jest-puppeteer": "^3.8.0",
-		"lodash": "^4.17.11",
+		"lodash": "^4.17.19",
 		"react": "16.7.0-alpha.2",
 		"react-awesome-modal": "^2.0.5",
 		"react-dom": "16.7.0-alpha.2",
