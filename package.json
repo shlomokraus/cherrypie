@@ -79,6 +79,6 @@
 		"webpack-livereload-plugin": "^2.2.0"
 	},
 	"devDependencies": {
-		"puppeteer": "^1.11.0"
+		"puppeteer": "^1.13.0"
 	}
 }
